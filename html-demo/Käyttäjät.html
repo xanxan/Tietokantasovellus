@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
+    </head>
+    <body>
+         <nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="#">Ravintola Demo</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+     
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-info">Submit</button>
+        
+      </form>
+         
+        <form class ="navbar-form navbar-left" role="button">
+           
+            <button class="btn btn-warning" href="http://xanxan.users.cs.helsinki.fi/html-demo/Etusivu.html" type="button">Etusivu</button>
+            <button class="btn btn-warning" href="html-demo/Ravintolalista.html" role="button">Ravintolat</button>
+            <button class="btn btn-warning" type="button">Käyttäjät</button>
+            <button class="btn btn-warning" type="button">Info</button>
+           
+        
+        </form>
+        <form class ="navbar-form navbar-right" role="button">
+             <button type="submit" class="btn btn-info">Kirjaudu sisään</button>
+            <button class="btn btn-info" href="#" role="button">Rekisteröidy</button>
+        </form>
+    
+        
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+      
+     
+
+        <div class="container">
+            <h1>Käyttäjät</h1>
+  
+   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Näytä <span class="caret"></span>
+  </button>
+   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Järjestä <span class="caret"></span>
+  </button>
+  <button type="button" class="btn btn-warning">
+    Päivitä! 
+  </button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Käyttäjä</th>
+          <th>Arvosteluja</th>
+          <th>Kommentteja</th>
+          <th>Profiili</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>kuvake</td>
+          <td>Anna Salo</td>
+          <td>24</td>
+          <td>12</td>
+          <td><button type="button" class="btn btn-xs btn-success">Mene sivulle</button></td>
+        </tr>
+        <tr>
+          <td>kuvake</td>
+          <td>Joosua Laakso</td>
+          <td>54</td>
+          <td>27</td>
+          <td><button type="button" class="btn btn-xs btn-success">Mene sivulle</button></td>
+        </tr>
+        <tr>
+          <td>kuvake</td>
+          <td>Sauli Niinistö</td>
+          <td>35</td>
+          <td>34</td>
+          <td><button type="button" class="btn btn-xs btn-success">Mene sivulle</button></td>
+        </tr>
+       
+      </tbody>
+    </table>
+            <ul class="pagination">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+  </div>
+         
+
+    </body>
+</html>

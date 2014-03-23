@@ -1,0 +1,21 @@
+/* 
+    Document   : main
+    Created on : 21.3.2014, 15:13:33
+    Author     : anna
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+   
+	section#main .media-object {
+  float:right;
+  width:200px;
+  padding:5px;
+  border:1px solid gray;
+  margin: 5px 20px 5px 0px;
+	}
+}
+
+
+

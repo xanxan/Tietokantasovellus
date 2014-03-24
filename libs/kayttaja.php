@@ -34,7 +34,7 @@ class Kayttaja {
   return $tulokset;
 }
   public function getTunnus() {
-	return $tunnus;
+	return $this->tunnus;
 
  } public function setTunnus($tunnus) {
 	$this->tunnus = $tunnus;
@@ -44,6 +44,6 @@ public function setId($id) {
 	$this->id = $id;
 }
 public function setSalasana($salasana) {
-	$this->salasana =$salasana;
+	$this->salasana = $salasana;
 }
 }

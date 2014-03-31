@@ -2,6 +2,16 @@
    
    require_once 'libs/utilities.php';
    require_once 'libs/models/user.php';
+
+   if(empty($_POST["username"]) && empty($_POST["password"])) {
+	naytaNakyma("kirjautumislomake.php", array(
+		'kayttaja' => $kayttaja,
+	));
+   }
+
+    $kayttaja = $_POST["username"];
+    $salasana = $_POST["password"];
+
    if (empty($_POST["username"])) {
 	naytaNakyma("kirjautumislomake.php", array(
 	  'virhe' => "Virhe kirjautumisessa, et antanut käyttäjätunnusta.",
@@ -19,13 +29,15 @@
 
 	
 	$salasana = $_POST["password"];
+
 	$tulos = Kayttaja::etsiKayttajaTunnuksilla($kayttaja, $salasana);
-	if ($kayttaja == $tulos->getTunnus()  && $salasana == $tulos->getSalasana()) {
-		$_SESSION['kirjautunut'] = $kayttaja;
-		header('Location: /html-demo/Profiilisivu.html');
-	} else {
+	if ($tulos == false) {
 		naytaNakyma("kirjautumislomake.php", array(
-		 'kayttaja' => $kayttaja,
+                 'kayttaja' => $kayttaja,
                  'virhe' => "Virhe kirjautumisessa, virheellinen käyttäjätunnus tai salasana!", request
                  ));
+		
+	} else {
+		$_SESSION['kirjautunut'] = $tulos->getId();
+                header('Location: etusivu.php');
         }  

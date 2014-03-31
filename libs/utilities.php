@@ -7,16 +7,17 @@
     exit();
   }
 
+  function issetEcho($var, $tuloste) {
+	if(isset($var)) {
+		echo $tuloste;
+	}
+  }
+
   function tarkistaKirjautuminen() {	
-	if (isset($_SESSION['kayttaja'])) {
-   	   $kayttaja = $_SESSION['kayttaja'];
-   		return true;
- 	 } else {
-	   header('Location: login.php');
-	 }
+	return isset($_SESSION['kirjautunut']); 
   }
 
   function kirjauduUlos() {
 	unset ($_SESSION["kirjautunut"]);
-	header('Location: login.php');
+	header('Location: ../etusivu.php');
   }

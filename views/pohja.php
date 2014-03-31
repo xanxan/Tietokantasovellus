@@ -20,7 +20,7 @@
       </button>
         <a class="navbar-brand" href="#">Ravintola Demo</a>
     </div>
-
+	<?php require_once 'libs/utilities.php'; ?>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
      
@@ -34,17 +34,24 @@
          
         <form class ="navbar-form navbar-left" role="button">
            
-            <a class="btn btn-warning" href="Etusivu.html" type="button">Etusivu</a>
-            <a class="btn btn-warning" href="Ravintolalista.html" role="button">Ravintolat</a>
-            <a class="btn btn-warning" href="Käyttäjälista.html" type="button">Käyttäjät</a>
-            <a class="btn btn-warning" href="Info.html" type="button">Info</a>
-           
+            <a class="btn btn-warning" href="etusivu.php" type="button">Etusivu</a>
+            <a class="btn btn-warning" href="ravintolalista.php" role="button">Ravintolat</a>
+            <a class="btn btn-warning" href="users.php" type="button">Käyttäjät</a>
+            <a class="btn btn-warning" href="info.php" type="button">Info</a>
+           <?php if(tarkistaKirjautuminen()): ?>
+       		<a class="btn btn-danger" href="profiilisivu.php" type="button">Profiili</a>
+		<a class="btn btn-danger" href="ehdotuslomake.php" type="button">Ehdota ravintolaa!</a>
+	   <?php  endif; ?>
         
         </form>
-        <form class ="navbar-form navbar-right" role="button">
-             <a href="#" type="button" class="btn btn-info">Kirjaudu sisään</a>
-            <a class="btn btn-info" href="Rekisteröityminen.html" role="button">Rekisteröidy</a>
-        </form>
+	<form class ="navbar-form navbar-right" role="button">
+	 <?php if(tarkistaKirjautuminen()){ ?>
+	    <a href="uloskirjautuminen.php" type="button" class="btn btn-info">Kirjaudu ulos</a>
+	<?php } else { ?>
+            <a href="login.php" type="button" class="btn btn-info">Kirjaudu sisään</a>
+            <a class="btn btn-info" href="register.php" role="button">Rekisteröidy</a>
+        <?php }; ?>
+	 </form>
     
         
     </div><!-- /.navbar-collapse -->

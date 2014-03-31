@@ -65,13 +65,25 @@ class Kayttaja {
    	 }
     }
     public static function etsiKayttaja() {
-	   $sql = "SELECT id, tunnus, salasana, kuvaus, kuva, liittymispaiva, arvosteluja, kommentteja, suosikkeja, inhokkeja FROM kayttajat WHERE id = ?";
+	   $sql = "SELECT id, tunnus, salasana, kuvaus, kuva, liittymispaiva, arvosteluja, kommentteja, suosikkeja, inhokkeja FROM kayttajat WHERE tunnus = ?";
            $kysely = getTietokantayhteys()->prepare($sql); $kysely->execute();
 
 	   $tulos = $kysely->fetchObject();
  	   $user = uusiKayttaja($tulos);
 	   return $user;
 
+    }
+    public static function etsiKayttajaIdlla() {
+	   $sql = "SELECT id, tunnus, salasana, kuvaus, kuva, liittymispaiva, arvosteluja, kommentteja, suosikkeja, inhokkeja FROM kayttajat WHERE id = ? LIMIT 1";
+           $kysely = getTietokantayhteys()->prepare($sql);
+	   $kysely->execute(array($id));
+           $tulos = $kysely->fetchObject();
+	   if ($tulos == null) {
+		return null;
+	   } else {
+               $user = uusiKayttaja($tulos);
+               return $user;
+	  }
     }
 
     public static function etsiKaikkiKayttajat() {

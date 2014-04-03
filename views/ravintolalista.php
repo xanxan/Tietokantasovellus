@@ -2,59 +2,88 @@
         <div class="container">
             <h1>Ravintolat</h1>
   <div class="form-group">   
-	<label for="select">Hintataso</label>
-	<select id="textInput" class="form-control">
+	<label for="select" class="col-md-2 control-label">Hintataso</label>
+	<div class="col-md-2">
+	<select id="textInput" class="form-control" value="<?php echo $data->hintataso; ?>" name="hintataso">
+          <option>Valitse</option>
 	  <option>€</option>
 	  <option>€€</option>
 	  <option>€€€</option>
 	  <option>€€€€</option>
 	  <option>€€€€€</option>
     	</select>
+	</div>
   </div>
   <div class="form-group">
-  <label for="select">Arvio</label>
-        <select id="textInput" class="form-control">
+	<label for="select" class="col-md-2 control-label">Arvio</label>
+	<div class="col-md-2">
+        <select id="textInput" class="form-control" value="<?php echo $data->arvio; ?>" name="arvio">
+          <option>Valitse</option>
           <option>*</option>
           <option>**</option>
           <option>***</option>
           <option>****</option>
           <option>*****</option>
         </select>
+	</div>
   </div>
   <div class="form-group">
-  <label for="select">Avoinna</label>
-        <select id="textInput" class="form-control">
+  <label for="select" class="col-md-2 control-label">Avoinna</label>
+        <div class="col-md-2">
+	<select id="textInput" class="form-control" value="<?php echo $data->aukioloajat; ?>" name="aukioloajat">
+          <option>Valitse</option>
           <option>08-12</option>
           <option>12-16</option>
           <option>16-20</option>
           <option>20-24</option>
           <option>24-04</option>
         </select>
+	</div>
   </div>
   <div class="form-group">
-   <label for="select">Näytä</label>
-        <select id="textInput" class="form-control">
+   <label for="select" class="col-md-2 control-label">Näytä</label>
+          <div class="col-md-2">
+	  <select id="textInput" class="form-control" value="<?php echo $data->tyyppi; ?>" name="tyyppi">
+          <option>Valitse</option>
           <option>Eurooppalaiset</option>
           <option>Aasialaiset</option>
           <option>Kasvisravintolat</option>
           <option>Kahvilat</option>
           <option>Baarit</option>
         </select>
+	</div>
  </div>
+<div class="form-group">
+  <label for="select" class="col-md-2 control-label">Tarjonta</label>
+          <div class="col-md-2">
+          <select id="textInput" class="form-control" value="<?php echo $data->sopivuustieto; ?>" name="sopivuustieto">
+	  <option>Valitse</option>
+          <option>Vegaanit</option>
+          <option>Lapsiperheet</option>
+          <option>Kasvissyöjät</option>
+          <option>A-oikeudet</option>
+          <option>Buffet</option>
+        </select>
+        </div>
+</div>
  <div class="form-group">
-  <label for="select">Järjestä</label>
-        <select id="textInput" class="form-control">
+  <label for="select" class="col-md-2 control-label">Järjestä</label>
+          <div class="col-md-2">
+	  <select id="textInput" class="form-control" value="<?php echo $data->järjestys; ?>" name="järjestys">
+          <option>Valitse</option>
           <option>Halvin-Kallein</option>
           <option>Kallein-Halvin</option>
           <option>Arvostelun mukaan</option>
-          <option>Nimen mukaan</option>
+          <option>Nimjärjestys</option>
           <option>Suosituimmat ensin</option>
         </select>
+	</div>
 </div>
-
-  <button type="button" class="btn btn-warning">
+<div class="col-md-2">
+  <button type="submit" class="btn btn-warning">
     Päivitä! 
   </button>
+</div>
     <table class="table table-striped">
       <thead>
         <tr>

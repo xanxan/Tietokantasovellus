@@ -18,8 +18,23 @@
   //Ravintoloiden kokonaislukumäärä haetaan, jotta tiedetään montako sivua ravintoloita kokonaisuudessa on:
   $ravintolaLkm = Ravintola::lukumaara();
   $sivuja = ceil($ravintolaLkm/$montako);
-
+ 
+  $ravintolat = Ravintola::etsiKaikkiRavintolat();
   	naytaNakyma("views/ravintolalista.php", array(
 		'sivuja' => $sivuja,
+		'lista' => $ravintolat
 
 	));
+
+  $hintataso = $_POST["hintataso"];
+  $arvio = $_POST["arvio"];
+  $aukioloajat = $_POST["aukioloajat"];
+  $tyyppi = $_POST["tyyppi"];
+  $sopivuustieto = $_POST["sopivuustieto"];
+  $jarjestys = $_POST["järjestys"];
+
+  $tulos = Ravintola::etsiRavintolat($hintataso, $arvio, $aukioloajat, $tyyppi, $sopivuustieto, $jarjestys);
+  naytaNakyma("views/ravintolalista.php", array(
+		'sivuja' => $sivuja,
+		'lista' => $tulos
+   ));

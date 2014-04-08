@@ -3,6 +3,8 @@ require_once 'libs/tietokantayhteys.php';
 
 class Ravintola {
 
+	private $virheet = array();
+
 	private $id;
 	private $nimi;
 	private $tyyppi;
@@ -16,7 +18,7 @@ class Ravintola {
 	private $arvosteluja;
 	private $kommentteja;
 
-	public function__construct($id, $nimi, $tyyppi, $osoite, $aukioloajat, $hintataso, $kuvaus, $kuva) {
+	public function __construct($id, $nimi, $tyyppi, $osoite, $aukioloajat, $hintataso, $kuvaus, $kuva) {
 		$this->id = $id;
 		$this->nimi = $nimi;
 		$this->tyyppi = $tyyppi;
@@ -43,20 +45,31 @@ class Ravintola {
                 $ravintola->setKuvaus($tulos->kuvaus);
                 $ravintola->setKuva($tulos->kuva);
                 $ravintola->setSuosikki($tulos->suosikki);
-                $ravintola->setInhokki($tulos->inhokki;
+                $ravintola->setInhokki($tulos->inhokki);
                 $ravintola->setArvosteluja($tulos->arvosteluja);
                 $ravintola->setKommentteja($tulos->kommentteja);
 		
 		return $ravintola;
 	}
 
-	public static function etsiRavintola() {
-		$sql = "SELECT id, nimi, tyyppi, osoite, aukioloajat, hintataso, kuvaus, k
-uva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE nimi = ?";
-                $kysely = getTietokantayhteys()->prepare($sql); $kysely->execute();
+	public static function etsiRavintolaIdlla($id) {
+		$sql = "SELECT id, nimi, tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE id = ?";
+                $kysely = getTietokantayhteys()->prepare($sql); $kysely->execute(array($id));
 		
 		$tulos = $kysely->fetchObject();
-		$ravintola = uusiRavintola($tulos);
+		$ravintola = new Ravintola();
+                $ravintola->setId($tulos->id);
+                $ravintola->setNimi($tulos->nimi);
+                $ravintola->setTyyppi($tulos->id);
+                $ravintola->setOsoite($tulos->osoite);
+                $ravintola->setAukioloajat($tulos->aukioloajat);
+                $ravintola->setHintataso($tulos->hintataso);
+                $ravintola->setKuvaus($tulos->kuvaus);
+                $ravintola->setKuva($tulos->kuva);
+                $ravintola->setSuosikki($tulos->suosikki);
+                $ravintola->setInhokki($tulos->inhokki);
+                $ravintola->setArvosteluja($tulos->arvosteluja);
+                $ravintola->setKommentteja($tulos->kommentteja);
 		return $ravintola;
 	}
 
@@ -67,10 +80,85 @@ uva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE nimi = ?"
 
 		$tulokset = array();
 		foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
-			$ravintola = uusiRavintola($tulos);
-			$tulokset[] = $ravintola;
+		$ravintola = new Ravintola();
+                $ravintola->setId($tulos->id);
+                $ravintola->setNimi($tulos->nimi);
+                $ravintola->setTyyppi($tulos->id);
+                $ravintola->setOsoite($tulos->osoite);
+                $ravintola->setAukioloajat($tulos->aukioloajat);
+                $ravintola->setHintataso($tulos->hintataso);
+                $ravintola->setKuvaus($tulos->kuvaus);
+                $ravintola->setKuva($tulos->kuva);
+                $ravintola->setSuosikki($tulos->suosikki);
+                $ravintola->setInhokki($tulos->inhokki);
+                $ravintola->setArvosteluja($tulos->arvosteluja);
+                $ravintola->setKommentteja($tulos->kommentteja);
+
+                
+		$tulokset[] = $ravintola;
 
 		} return $tulokset;
+	}
+
+
+	 public function lisaaKantaan() {
+	    $sql = "INSERT INTO ravintolat(id, aukioloajat, arvosteluja, hintataso, inhokki, kommentteja, kuva, kuvaus, nimi, osoite, suosikki, tyyppi) VALUES(?,?,0,?,0,0,?,?,?,?,0,?) RETURNING id";
+	    $kysely = getTietokantayhteys()->prepare($sql);
+
+	    $ok = $kysely->execute(array($this->getAukioloajat(), $this->getArvosteluja(), $this->getHintataso(), $this->getInhokki(), $this->getKommentteja(), $this->getKuva(), $this->getKuvaus(), $this->getNimi(), $this->getOsoite(), $this->getSuosikki(), $this->getTyyppi()));
+ 	   if ($ok) {
+ 	     //Haetaan RETURNING-määreen palauttama id.
+ 	     //HUOM! Tämä toimii ainoastaan PostgreSQL-kannalla!
+ 	     $this->id = $kysely->fetchColumn();
+ 	   }
+ 	   return $ok;
+ 	 }
+
+	public static function onkoKelvollinen() {
+		return empty($this->virheet);
+
+	}
+	
+	public static function getVirheet() {
+		return $this->virheet;
+
+	}
+
+	public static function getRavintolatSivulla($s, $m) {
+		$sivu = $s;
+		$montako = $m;
+		$sql = "SELECT * FROM ravintolat ORDER BY nimi LIMIT ? OFFSET ?";
+		$kysely = getTietokantayhteys()->prepare($sql);
+		$kysely->execute(array($montako, ($sivu-1)*$montako));
+		
+		$tulokset = array();
+                foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+                         $ravintola = new Ravintola();
+                	$ravintola->setId($tulos->id);
+                	$ravintola->setNimi($tulos->nimi);
+                	$ravintola->setTyyppi($tulos->id);
+                	$ravintola->setOsoite($tulos->osoite);
+                	$ravintola->setAukioloajat($tulos->aukioloajat);
+                	$ravintola->setHintataso($tulos->hintataso);
+                	$ravintola->setKuvaus($tulos->kuvaus);
+                	$ravintola->setKuva($tulos->kuva);
+                	$ravintola->setSuosikki($tulos->suosikki);
+                	$ravintola->setInhokki($tulos->inhokki);
+                	$ravintola->setArvosteluja($tulos->arvosteluja);
+                	$ravintola->setKommentteja($tulos->kommentteja);
+
+                
+                        $tulokset[] = $ravintola;
+
+                } return $tulokset;
+
+	}
+
+	public static function lukumaara() {
+  	  $sql = "SELECT count(*) FROM ravintolat";
+  	  $kysely = getTietokantayhteys()->prepare($sql);
+  	  $kysely->execute();
+	  return $kysely->fetchColumn();
 	}
 		
 	 /* Tähän gettereitä ja settereitä */
@@ -81,6 +169,22 @@ uva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE nimi = ?"
 
 	public function setId($id) {
 		$this->id = $id;
+
+		if (trim($this->id) == '') {
+      			$this->virheet['id'] = "ID ei saa olla tyhjä.";
+    		 } else { 
+      			unset($this->virheet['id']);
+   		 }
+	        if (!is_numeric($id)) {
+           	   $this->virheet['id'] = "Ravintolan id:n tulee olla numero.";
+          	} else if ($id <= 0) {
+            	   $this->virheet['id'] = "Ravintolalla täytyy olla positiivinen id.";
+          	} else {
+            	  unset($this->virheet['id']);
+         	 }
+		if (!preg_match('/^\d+$/', $id)) {
+ 		   $this->virheet['id'] ="Ravintolan id:n tulee olla kokonaisluku.";
+		}
 	}
 
 	 public function getNimi() {
@@ -89,6 +193,12 @@ uva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE nimi = ?"
 
         public function setNimi($nimi) {
 		$this->nimi = $nimi;
+
+		if (trim($this->nimi) == '') {
+     		   $this->virheet['nimi'] = "Nimi ei saa olla tyhjä.";
+   		 } else { 
+      		   unset($this->virheet['nimi']);
+    		 }
         }
 	 public function getTyyppi() {
 		return $this->tyyppi;
@@ -121,7 +231,10 @@ uva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE nimi = ?"
 	 public function getKuvaus() {
 		return $this->kuvaus;
         }
-
+	
+	public function getArvio() {
+		return "***";
+	}
         public function setKuvaus($kuvaus) {
 		$this->kuvaus = $kuvaus;
         }
@@ -160,6 +273,5 @@ uva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE nimi = ?"
         public function setKommentteja($kommentteja) {
 		$this->kommentteja = $kommentteja;
         }
-
 
 }

@@ -1,6 +1,6 @@
 
    create table Ravintolat(
-	id integer not null,
+	id serial,
         aukioloajat varchar(30) not null,
 	arvosteluja integer not null,
         hintataso varchar(5) not null,
@@ -25,7 +25,7 @@
         salasana varchar(15) not null,
         suosikkeja integer not null,
         tunnus varchar(10) not null,
-        id integer not null,
+        id serial,
         primary key (id)
     );
 

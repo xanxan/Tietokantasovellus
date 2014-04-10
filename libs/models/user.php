@@ -47,6 +47,20 @@ class Kayttaja {
 
     }
 
+     public static function etsiKayttaja($kayttaja) {
+         $sql = "SELECT tunnus FROM kayttajat WHERE tunnus = ? LIMIT 1";
+	 $kysely = getTietokantayhteys()->prepare($sql);
+         $kysely->execute(array($kayttaja->getTunnus()));
+
+         $tulos = $kysely->fetchObject();
+         if ($tulos == null) {
+           return null;
+         } else {
+           return true;
+         }
+    }
+
+
      public static function etsiKayttajaTunnuksilla($kayttaja, $salasana) {
    	 $sql = "SELECT id, tunnus, salasana FROM kayttajat WHERE tunnus = ? AND salasana =  ? LIMIT 1";
    	 $kysely = getTietokantayhteys()->prepare($sql);
@@ -64,16 +78,22 @@ class Kayttaja {
    	   return $kayttaja;
    	 }
     }
-    public static function etsiKayttaja() {
-	   $sql = "SELECT id, tunnus, salasana, kuvaus, kuva, liittymispaiva, arvosteluja, kommentteja, suosikkeja, inhokkeja FROM kayttajat WHERE tunnus = ?";
-           $kysely = getTietokantayhteys()->prepare($sql); $kysely->execute();
+    public static function lisaaKantaan($kayttaja) {
+	    $sql = "INSERT INTO kayttajat(arvosteluja, inhokkeja, kommentteja, kuva, kuvaus, salasana, suosikkeja, tunnus) VALUES(0,0,0,?,?,?,0,?) RETURNING id";
+    $kysely = getTietokantayhteys()->prepare($sql);
 
-	   $tulos = $kysely->fetchObject();
- 	   $user = uusiKayttaja($tulos);
-	   return $user;
+    $ok = $kysely->execute(array($kayttaja->getKuva(), $kayttaja->getKuvaus(), $kayttaja->getSalasana(), $kayttaja->getTunnus()));
+    if ($ok) {
+      //Haetaan RETURNING-määreen palauttama id.
+      //HUOM! Tämä toimii ainoastaan PostgreSQL-kannalla!
+      $kayttaja->id = $kysely->fetchColumn();
+    }
+    return $ok;
 
     }
+
     public static function etsiKayttajaIdlla() {
+   
 	   $sql = "SELECT id, tunnus, salasana, kuvaus, kuva, liittymispaiva, arvosteluja, kommentteja, suosikkeja, inhokkeja FROM kayttajat WHERE id = ? LIMIT 1";
            $kysely = getTietokantayhteys()->prepare($sql);
 	   $kysely->execute(array($id));

@@ -21,3 +21,8 @@
 	unset ($_SESSION["kirjautunut"]);
 	header('Location: ../etusivu.php');
   }
+
+  function tarkistaOikeudet() {
+
+
+  }

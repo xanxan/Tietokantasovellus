@@ -27,7 +27,7 @@ class Kayttaja {
     $this->inhokkeja = 0;
     $this->kommentteja = 0;
   }
-    public static function uusiKayttaja($tulos) {
+    public function uusiKayttaja($tulos) {
        	   $kayttaja = new Kayttaja();
            $kayttaja->setId($tulos->id);
            $kayttaja->setTunnus($tulos->tunnus);
@@ -78,14 +78,14 @@ class Kayttaja {
    	   return $kayttaja;
    	 }
     }
-    public static function lisaaKantaan($kayttaja) {
-	    $sql = "INSERT INTO kayttajat(arvosteluja, inhokkeja, kommentteja, kuva, kuvaus, salasana, suosikkeja, tunnus) VALUES(0,0,0,?,?,?,0,?) RETURNING id";
+    public function lisaaKantaan() {
+	    $sql = "INSERT INTO kayttajat(arvosteluja, inhokkeja, kommentteja, kuva, kuvaus, salasana, liittymispaiva, suosikkeja, tunnus) VALUES(0,0,0,?,?,?,'2014-04-10',0,?) RETURNING id";
     $kysely = getTietokantayhteys()->prepare($sql);
 
-    $ok = $kysely->execute(array($kayttaja->getKuva(), $kayttaja->getKuvaus(), $kayttaja->getSalasana(), $kayttaja->getTunnus()));
+    $ok = $kysely->execute(array($this->getKuva(), $this->getKuvaus(), $this->getSalasana(), $this->getTunnus()));
     if ($ok) {
-      //Haetaan RETURNING-määreen palauttama id.
-      //HUOM! Tämä toimii ainoastaan PostgreSQL-kannalla!
+//      Haetaan RETURNING-määreen palauttama id.
+  //    HUOM! Tämä toimii ainoastaan PostgreSQL-kannalla!
       $kayttaja->id = $kysely->fetchColumn();
     }
     return $ok;

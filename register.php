@@ -43,7 +43,7 @@ if (empty($_POST["username"])) {
         'virhe' => "Virhe rekisteröitymisessä, käyttäjätunnus on jo varattu.",
         ));
 	} else {
-	   Kayttaja::lisaaKantaan($kayttaja);
+	   $kayttaja->lisaaKantaan();
 	   header('Location: etusivu.php');
 	}
    } else {

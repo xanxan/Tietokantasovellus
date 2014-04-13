@@ -49,7 +49,8 @@
             <a class="btn btn-warning" href="users.php" type="button">Käyttäjät</a>
             <a class="btn btn-warning" href="info.php" type="button">Info</a>
            <?php if(tarkistaKirjautuminen()): ?>
-       		<a class="btn btn-danger" href="profiilisivu.php" type="button">Profiili</a>
+	     <?php $kayttaja = $_SESSION['kirjautunut'] ?>
+       		<a class="btn btn-danger" href="profiili.php?id=<?php echo $kayttaja; ?>" type="button">Profiili</a>
 		<a class="btn btn-danger" href="ehdotuslomake.php" type="button">Ehdota ravintolaa!</a>
 	   <?php  endif; ?>
         

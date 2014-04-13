@@ -7,7 +7,7 @@
 <div class="container">
 <div class="kayttaja">
    
-    <h1>Käyttäjän <?php echo $data->kayttaja->getTunnus(); ?>  profiili</h1>
+    <h1>Käyttäjän <?php echo $kayttaja->getTunnus(); ?>  profiili</h1>
    
     <ul class="nav nav-tabs">
     <li class="active"><a href="#">Henkilötiedot</a></li>
@@ -27,7 +27,7 @@
 	<h4>Liittynyt</h4>
 	<div class="value"><?php echo $kayttaja->getLiittymispaiva(); ?></div>
     </div>
-        
+     <a type="button" href="update.php?id=<?php echo $kayttaja->getId() ?>" class="btn btn-xs btn-warning">Muokkaa tietoja</a>   
     </ul>
   </div>
 	<h1><?php echo $data->virhe; ?></h1>

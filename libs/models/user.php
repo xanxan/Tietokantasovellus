@@ -14,6 +14,8 @@ class Kayttaja {
   private $inhokkeja;
   private $kommentteja;
 
+  private $virheet = array();
+
 
   public function __construct($id, $tunnus, $salasana, $kuvaus, $kuva, $liittymispaiva) {
     $this->id = $id;
@@ -91,8 +93,24 @@ class Kayttaja {
     return $ok;
 
     }
+     
+    public function paivita() {
+	$sql = "UPDATE kayttajat SET salasana = ?, kuvaus = ?, kuva = ? WHERE id = ?";
+	$kysely = getTietokantayhteys()->prepare($sql);
+	$ok = $kysely->execute(array($this->getSalasana(), $this->getKuvaus(), $this->getKuva(), $this->getId()));
 
-    public static function etsiKayttajaIdlla() {
+	return $ok;
+    }
+
+    public function poistaKayttaja() {
+	$sql = "DELETE FROM kayttajat WHERE id = ?";
+	$kysely = getTietokantayhteys()->prepare($sql);
+	$ok = $kysely->execute(array($this->getId()));
+	return $ok;
+
+    }
+
+    public function etsiKayttajaIdlla($id) {
    
 	   $sql = "SELECT id, tunnus, salasana, kuvaus, kuva, liittymispaiva, arvosteluja, kommentteja, suosikkeja, inhokkeja FROM kayttajat WHERE id = ? LIMIT 1";
            $kysely = getTietokantayhteys()->prepare($sql);
@@ -101,8 +119,12 @@ class Kayttaja {
 	   if ($tulos == null) {
 		return null;
 	   } else {
-               $user = uusiKayttaja($tulos);
-               return $user;
+                $kayttaja = new Kayttaja($tulos->id, $tulos->tunnus, $tulos->salasana, $tulos->kuvaus, $tulos->kuva, $tulos->liittymispaiva);
+              $kayttaja->setKommentteja($tulos->kommentteja);
+              $kayttaja->setSuosikkeja($tulos->suosikkeja);
+              $kayttaja->setInhokkeja($tulos->inhokkeja);
+              $kayttaja->setArvosteluja($tulos->arvosteluja);
+               return $kayttaja;
 	  }
     }
 
@@ -112,14 +134,60 @@ class Kayttaja {
 
  	 $tulokset = array();
  	 foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
- 	   $kayttaja = uusiKayttaja($tulos);
-
+ 	      $kayttaja = new Kayttaja($tulos->id, $tulos->tunnus, $tulos->salasana, $tulos->kuvaus, $tulos->kuva, $tulos->liittymispaiva);
+	      $kayttaja->setKommentteja($tulos->kommentteja);
+	      $kayttaja->setSuosikkeja($tulos->suosikkeja);
+              $kayttaja->setInhokkeja($tulos->inhokkeja);
+              $kayttaja->setArvosteluja($tulos->arvosteluja);
   	  //$array[] = $muuttuja; lisää muuttujan arrayn perään. 
   	  //Se vastaa melko suoraan ArrayList:in add-metodia.
  	   $tulokset[] = $kayttaja;
  	 }
  	 return $tulokset;
     }
+
+    	public static function lukumaara() {
+ 	  $sql = "SELECT count(*) FROM kayttajat";
+ 	  $kysely = getTietokantayhteys()->prepare($sql);
+ 	  $kysely->execute();
+	  return $kysely->fetchColumn();
+    }
+
+    	public static function onkoKelvollinen() {
+		return empty($this->virheet);
+
+   }	
+
+	public static function getVirheet() {
+		return $this->virheet;
+
+   }
+
+	public static function getKayttajatSivulla($s, $m) {
+		$sivu = $s;
+		$montako = $m;
+		$sql = "SELECT * FROM kayttajat ORDER BY tunnus LIMIT ? OFFSET ?";
+		$kysely = getTietokantayhteys()->prepare($sql);
+		$kysely->execute(array($montako, ($sivu-1)*$montako));
+
+		$tulokset = array();
+                foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+                         $kayttaja = new Kayttaja();
+                 	 $kayttaja->setId($tulos->id);
+                 	 $kayttaja->setTunnus($tulos->tunnus);
+                	 $kayttaja->setKommentteja($tulos->kommentteja);
+                 	 $kayttaja->setLiittymispaiva($tulos->liittymispaiva);
+                	 $kayttaja->setKuva($tulos->kuva);
+                	 $kayttaja->setSuosikkeja($tulos->suosikkeja);
+                	 $kayttaja->setInhokkeja($tulos->inhokkeja);
+                	 $kayttaja->setArvosteluja($tulos->arvosteluja);
+
+                
+
+                } return $tulokset;
+
+}
+
 
  /* Tähän gettereitä ja settereitä */
 

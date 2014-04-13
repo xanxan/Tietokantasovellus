@@ -20,7 +20,7 @@
 <td><?php echo $kayttaja->getLiittymispaiva(); ?></td>
 <td><?php echo $kayttaja->getKommentteja(); ?></td>
 <td><?php echo $kayttaja->getArvosteluja(); ?></td>
-<td><a type="button" href="profiili.php?id=<?php echo $kayttaja->getId() ?>" class="btn btn-xs btn-success">Mene sivulle</a></td>
+<td><a type="button" href="profiili.php?id=<?php echo $kayttaja->getId(); ?>" class="btn btn-xs btn-success">Mene sivulle</a></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

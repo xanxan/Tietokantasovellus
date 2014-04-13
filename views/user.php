@@ -1,19 +1,35 @@
-
-
 <?php
   /** Tiedosto, jonka tarkoituksena on näyttää käyttäjän tiedot.
     * Olettaa, että muuttuja $kayttaja on asetettu. */ 
-?><div class="kayttaja">
-  <div class="row nimi">
-    <label>Nimi:</label>
-    <div class="value"><?php echo $kayttaja->getNimi(); ?></div>
+  $kayttaja = $data->kayttaja;
+
+?>
+<div class="container">
+<div class="kayttaja">
+   
+    <h1>Käyttäjän <?php echo $data->kayttaja->getTunnus(); ?>  profiili</h1>
+   
+    <ul class="nav nav-tabs">
+    <li class="active"><a href="#">Henkilötiedot</a></li>
+    <li ><a href="#">Viimeisimmät kommentit</a></li>
+    <li ><a href="#">Suosikkilista</a></li>
+    <li ><a href="#">Inhokkilista</a></li>
+  </ul>
+  <div class="container">
+      <h1>Henkilötiedot</h1>
+      
+    <ul>
+        <h2 class="text-center">Lisätietoja</h2>
+        
+        <p class="text-center"><?php echo $kayttaja->getKuvaus(); ?></p>
+      <div id="teamcontent" class="clearfix">
+        <img src="<?php echo $kayttaja->getKuva(); ?>" alt="kuva" class="img-circle">
+	<h4>Liittynyt</h4>
+	<div class="value"><?php echo $kayttaja->getLiittymispaiva(); ?></div>
+    </div>
+        
+    </ul>
   </div>
-  <div class="row kuvaus">
-    <label>Kuvaus:</label>
-    <div class="value"><?php echo $kayttaja->getKuvaus(); ?></div>
-  </div>
-  <div class="row liittymispaiva">
-    <label>Liittynyt:</label>
-    <div class="value"><?php echo $kayttaja->getLiittymispaiva(); ?></div>
-  </div>
+	<h1><?php echo $data->virhe; ?></h1>
+</div>
 </div>

@@ -114,6 +114,23 @@ class Ravintola {
  	   return $ok;
  	 }
 
+	 public function paivita() {
+		$sql = "UPDATE ravintolat SET aukioloajat = ?, hintataso = ?, osoite = ?, tyyppi = ?, kuvaus = ?, kuva = ? WHERE id = ?";
+		$kysely = getTietokantayhteys()->prepare($sql);
+		$ok = $kysely->execute(array($this->getAukioloajat(), $this->getHintataso(), $this->getOsoite(), $this->getTyyppi(), $this->getKuvaus(), $this->getKuva(), $this->getId()));
+
+		return $ok;
+	    }
+
+        public function poistaKayttaja() {
+		$sql = "DELETE FROM ravintolat WHERE id = ?";
+		$kysely = getTietokantayhteys()->prepare($sql);
+		$ok = $kysely->execute(array($this->getId()));
+		return $ok;
+
+	    }
+
+
 	public static function onkoKelvollinen() {
 		return empty($this->virheet);
 

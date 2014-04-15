@@ -59,6 +59,5 @@ Tietokantasovellus –harjoitustyö<!DOCTYPE html>
     </p>
    
 
-   Päivitys tilanteesta: Kayttajat -taulun crud toiminnot ovat nyt valmiina, eli ohjelma näyttää kaikki käyttäjät listassa, lisää uuden käyttäjän kantaan rekisteröimisen yhteydessä, päivittää käyttäjän tiedot ja halutessa poistaa käyttäjätunnuksen. Tällä hetkellä työn alla on adminin oikeudet lisätä, muokata ja poistaa ravintoloita sekä ravintolan listanäkymä. Ps. päivityssivulla sen verran vikaa että päivittäessä käyttäjän nimen näyttäminen ei toimi (Call to a member function getTunnus() on a non-object) vaikka olen tota yrittänyt korjata mikä siinä mättää. Virhe korjataan mahdollisimman pian.
-  </body>
+  Päivitys: tiedon muokkaaminen korjattu ja toimii.</body>
 </html>

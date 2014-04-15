@@ -8,11 +8,12 @@ $kayttaja = Kayttaja::etsiKayttajaIdlla($id);
 
 
 if (!is_null($kayttaja)) {
-	naytaNakyma("views/profiilinpaivitys.php", array(
+	if(empty($_POST["password"]) && empty($_POST["password1"]) && empty($_POST["password2"]) && empty($_POST["kuvaus"]) && empty($_POST["kuva"])) {
+		naytaNakyma("views/profiilinpaivitys.php", array(
 		'kayttaja' => $kayttaja,
 		'nimi' => $kayttaja->getTunnus(),
-	));
-}
+		));
+	}
 
 	$salasana = $_POST['password'];
         $kayttaja->setSalasana($_POST['password1']);
@@ -38,9 +39,9 @@ if (!is_null($kayttaja)) {
 	 $salasana2 = $_POST["password2"];
 
 	if($kayttaja->getSalasana() == $salasana2) {
-		$user = Kayttaja::etsiKayttaja($kayttaja);
+		$user = Kayttaja::etsiKayttajaTunnuksilla($kayttaja->getTunnus(), $salasana);
 
-		if ($salasana == $user->getSalasana()) {
+		if (!is_null($user)) {
 			$kayttaja->paivita();
 		        header('Location: etusivu.php');
 		} else {
@@ -57,4 +58,4 @@ if (!is_null($kayttaja)) {
 		'virhe' => "Uudet salasanat eivät täsmänneet!", request
 		));
 	}
-
+}

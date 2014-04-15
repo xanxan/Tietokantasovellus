@@ -1,11 +1,13 @@
 <?php
+ require_once 'libs/utilities.php';
+ require_once 'libs/models/restaurant.php';
 
 $uusiravintola = new Ravintola();
-
-naytaNakyma("ravintolalomake",array(
-  'ravintola' => new Ravintola(),
-));
-
+if(empty($_POST['nimi']) && empty($_POST['osoite']) && empty($_POST['aukioloajat'])) {
+	naytaNakyma("views/ravintolalomake.php", array(
+	  'ravintola' => new Ravintola(),
+	));
+}
 $uusiravintola->setNimi($_POST['nimi']);
 $uusiravintola->setTyyppi($_POST['tyyppi']);
 $uusiravintola->setId($_POST['id']);
@@ -32,7 +34,7 @@ if ($uusiravintola->onkoKelvollinen()) {
   $virheet = $uusiravintola->getVirheet();
 
   //Virheet voidaan nyt välittää näkymälle syötettyjen tietojen kera
-  naytaNakymä("ravintolalomake", array(
+  naytaNakyma("views/ravintolalomake.php", array(
     'ravintola' => $uusiravintola,
     'virheet' => $uusiravintola->getVirheet()
   ));

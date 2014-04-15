@@ -52,13 +52,13 @@
 	     <?php $kayttaja = $_SESSION['kirjautunut'] ?>
        		<a class="btn btn-danger" href="profiili.php?id=<?php echo $kayttaja; ?>" type="button">Profiili</a>
 		<a class="btn btn-danger" href="ehdotuslomake.php" type="button">Ehdota ravintolaa!</a>
-		<?php if(tarkistaOikeudet()): ?>
-		   <a class="btn btn-info" href="insert.php" type="button">Lisää ravintola</a>	 
-		<?php endif; ?>
 	     <?php  endif; ?>
         
         </form>
 	<form class ="navbar-form navbar-right" role="button">
+	 <?php if(tarkistaOikeudet()): ?>
+                   <a class="btn btn-info" href="insert.php" type="button">Lisää ravintola</a>
+                <?php endif; ?>
 	 <?php if(tarkistaKirjautuminen()){ ?>
 	    <a href="uloskirjautuminen.php" type="button" class="btn btn-info">Kirjaudu ulos</a>
 	<?php } else { ?>

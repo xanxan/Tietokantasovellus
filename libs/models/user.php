@@ -29,7 +29,7 @@ class Kayttaja {
     $this->inhokkeja = 0;
     $this->kommentteja = 0;
   }
-    public function uusiKayttaja($tulos) {
+    public static function uusiKayttaja($tulos) {
        	   $kayttaja = new Kayttaja();
            $kayttaja->setId($tulos->id);
            $kayttaja->setTunnus($tulos->tunnus);

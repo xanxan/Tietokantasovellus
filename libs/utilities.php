@@ -19,10 +19,12 @@
 
   function kirjauduUlos() {
 	unset ($_SESSION["kirjautunut"]);
+	unset ($_SESSION["admin"]);
 	header('Location: ../etusivu.php');
   }
 
   function tarkistaOikeudet() {
-
+	
+	return isset($_SESSION['admin']); 
 
   }

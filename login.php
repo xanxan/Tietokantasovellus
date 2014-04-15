@@ -2,6 +2,7 @@
    
    require_once 'libs/utilities.php';
    require_once 'libs/models/user.php';
+   require_once 'libs/models/admin.php';
 
    if(empty($_POST["username"]) && empty($_POST["password"])) {
 	naytaNakyma("kirjautumislomake.php", array(
@@ -22,7 +23,7 @@
    if (empty($_POST["password"])) {
    
   	 naytaNakyma("kirjautumislomake.php", array(
-       		 'kayttaja' => $kayttaja,
+       		 'kayttaja' => htmlspecialchars($kayttaja),
 		 'virhe' => "Virhe kirjautumisessa, et antanut salasanaa.",
        		 )); 
    } 
@@ -33,11 +34,15 @@
 	$tulos = Kayttaja::etsiKayttajaTunnuksilla($kayttaja, $salasana);
 	if ($tulos == false) {
 		naytaNakyma("kirjautumislomake.php", array(
-                 'kayttaja' => $kayttaja,
+                 'kayttaja' => htmlspecialchars($kayttaja),
                  'virhe' => "Virhe kirjautumisessa, virheellinen käyttäjätunnus tai salasana!", request
                  ));
 		
 	} else {
+		if (!is_null(Yllapitaja::EtsiAdminIdlla($tulos->getId()))) { 
+			$_SESSION['admin'] = $tulos->getId();
+		}
 		$_SESSION['kirjautunut'] = $tulos->getId();
+		
                 header('Location: etusivu.php');
         }  

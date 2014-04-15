@@ -1,5 +1,6 @@
 <?php
 require_once 'libs/tietokantayhteys.php';
+require_once 'user.php';
 
 class Yllapitaja {
 
@@ -14,8 +15,8 @@ class Yllapitaja {
   }
 
 
-  public static lisaaAdmin() {
-    $sql = "INSERT INTO yllapitajat(id, tunnus) VALUES(?,?)";
+  public function lisaaAdmin() {
+    $sql = "INSERT INTO yllapitajat(kayttaja_id, kayttajatunnus) VALUES(?,?)";
     $kysely = getTietokantayhteys()->prepare($sql);
 
     $ok = $kysely->execute(array($this->getId(), $this->getTunnus()));
@@ -27,28 +28,28 @@ class Yllapitaja {
     }
 
    public function poistaAdmin() {
-	$sql = "DELETE FROM yllapitajat WHERE id = ?";
+	$sql = "DELETE FROM yllapitajat WHERE kayttaja_id = ?";
 	$kysely = getTietokantayhteys()->prepare($sql);
 	$ok = $kysely->execute(array($this->getId()));
 	return $ok;
 
     }
 
-    public function etsiAdminIdlla() {
+    public function etsiAdminIdlla($id) {
    
-	$sql = "SELECT id, tunnus FROM kayttajat WHERE id = ? LIMIT 1";
+	$sql = "SELECT kayttaja_id, kayttajatunnus FROM yllapitajat WHERE kayttaja_id = ? LIMIT 1";
         $kysely = getTietokantayhteys()->prepare($sql);
 	$kysely->execute(array($id));
         $tulos = $kysely->fetchObject();
 	if ($tulos == null) {
 	       return null;
 	} else {
-               $user = uusiKayttaja($tulos);
+               $user = Kayttaja::uusiKayttaja($tulos);
                return $user;
 	}
     }
 
-   public funtion setId($id) {
+   public function setId($id) {
 	$this->id = $id;
 
    }
@@ -59,7 +60,7 @@ class Yllapitaja {
   }
 
 
-   public funtion setTunnus($tunnus) {
+   public function setTunnus($tunnus) {
         $this->tunnus = $tunnus;
 
    }

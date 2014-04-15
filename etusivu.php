@@ -2,6 +2,9 @@
    
    require_once 'libs/utilities.php';
    require_once 'libs/models/user.php';
+  
+
+
 
    if (tarkistaKirjautuminen()) {
 	$id = $_SESSION['kirjautunut'];

@@ -26,6 +26,14 @@ class Yllapitaja {
 
     }
 
+   public function poistaAdmin() {
+	$sql = "DELETE FROM yllapitajat WHERE id = ?";
+	$kysely = getTietokantayhteys()->prepare($sql);
+	$ok = $kysely->execute(array($this->getId()));
+	return $ok;
+
+    }
+
     public function etsiAdminIdlla() {
    
 	$sql = "SELECT id, tunnus FROM kayttajat WHERE id = ? LIMIT 1";
@@ -40,10 +48,26 @@ class Yllapitaja {
 	}
     }
 
+   public funtion setId($id) {
+	$this->id = $id;
+
+   }
+
+  public function getId() {
+	return $this->id;
+
+  }
 
 
+   public funtion setTunnus($tunnus) {
+        $this->tunnus = $tunnus;
 
+   }
 
+  public function getTunnus() {
+        return $this->tunnus;
+
+  }
 
 
 }

@@ -5,6 +5,7 @@ require_once 'libs/models/user.php';
 
 $id = $_SESSION['kirjautunut'];
 $kayttaja = Kayttaja::etsiKayttajaIdlla($id);
+$error = null;
 
 
 if (!is_null($kayttaja)) {
@@ -45,7 +46,7 @@ if (!is_null($kayttaja)) {
 		if (!is_null($user)) {
 		   if($user->onkoKelvollinen()) {
 			$kayttaja->paivita();
-		        header('Location: etusivu.php');
+		        header('Location: profiili.php?id='.$id);
 		  	$_SESSION['ilmoitus'] = "Päivitys onnistui!";
 		    } else { 
 			$virheet = $user->getVirheet();

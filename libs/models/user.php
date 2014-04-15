@@ -50,7 +50,7 @@ class Kayttaja {
     }
 
      public static function etsiKayttaja($kayttaja) {
-         $sql = "SELECT tunnus FROM kayttajat WHERE tunnus = ? LIMIT 1";
+         $sql = "SELECT tunnus, salasana FROM kayttajat WHERE tunnus = ? LIMIT 1";
 	 $kysely = getTietokantayhteys()->prepare($sql);
          $kysely->execute(array($kayttaja->getTunnus()));
 
@@ -58,7 +58,7 @@ class Kayttaja {
          if ($tulos == null) {
            return null;
          } else {
-           return true;
+           return $tulos;
          }
     }
 
@@ -97,9 +97,9 @@ class Kayttaja {
     public function paivita() {
 	$sql = "UPDATE kayttajat SET salasana = ?, kuvaus = ?, kuva = ? WHERE id = ?";
 	$kysely = getTietokantayhteys()->prepare($sql);
-	$ok = $kysely->execute(array($this->getSalasana(), $this->getKuvaus(), $this->getKuva(), $this->getId()));
+	$kysely->execute(array($this->getSalasana(), $this->getKuvaus(), $this->getKuva(), $this->getId()));
 
-	return $ok;
+	return null;
     }
 
     public function poistaKayttaja() {
@@ -153,12 +153,12 @@ class Kayttaja {
 	  return $kysely->fetchColumn();
     }
 
-    	public static function onkoKelvollinen() {
+    	public  function onkoKelvollinen() {
 		return empty($this->virheet);
 
    }	
 
-	public static function getVirheet() {
+	public function getVirheet() {
 		return $this->virheet;
 
    }
@@ -198,6 +198,14 @@ class Kayttaja {
 
   public function setTunnus($tunnus) {
         $this->tunnus = $tunnus;
+	if (trim($this->tunnus) === '') {
+	   $this->virheet['tunnus'] = "Tunnus ei saa olla tyhjä.";
+	} else if (strlen($this->tunnus) > 10){
+	   $this->virheet['tunnus'] = "Tunnus saa olla maksimissaan 10 merkkiä pitkä."; 
+	} else {
+	   unset($this->virheet['tunnus']);
+	}
+
   }
 
   public function getId() {
@@ -213,6 +221,14 @@ class Kayttaja {
   }
   public function setSalasana($salasana) {
         $this->salasana = $salasana;
+
+	 if (trim($this->salasana) === '') {
+           $this->virheet['salasana'] = "Salasana ei saa olla tyhjä.";
+         } else if (strlen($this->salasana) > 15){
+           $this->virheet['salasana'] = "Salasana saa olla maksimissaan 15 merkkiä pitkä.";
+	 } else {
+           unset($this->virheet['salasana']);
+        }
   }
 
   public function getKuvaus() {

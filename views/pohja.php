@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <?php if (!empty($_SESSION['ilmoitus'])): ?>
-  <div class="alert alert-danger">
+  <div class="alert alert-warning">
     <?php echo $_SESSION['ilmoitus']; ?>
   </div>
 <?php
@@ -52,7 +52,10 @@
 	     <?php $kayttaja = $_SESSION['kirjautunut'] ?>
        		<a class="btn btn-danger" href="profiili.php?id=<?php echo $kayttaja; ?>" type="button">Profiili</a>
 		<a class="btn btn-danger" href="ehdotuslomake.php" type="button">Ehdota ravintolaa!</a>
-	   <?php  endif; ?>
+		<?php if(tarkistaOikeudet()): ?>
+		   <a class="btn btn-info" href="insert.php" type="button">Lisää ravintola</a>	 
+		<?php endif; ?>
+	     <?php  endif; ?>
         
         </form>
 	<form class ="navbar-form navbar-right" role="button">

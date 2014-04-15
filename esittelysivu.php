@@ -59,5 +59,5 @@ Tietokantasovellus –harjoitustyö<!DOCTYPE html>
     </p>
    
 
-  Päivitys: tiedon muokkaaminen korjattu ja toimii.</body>
+  Päivitys: tiedon muokkaaminen korjattu ja toimii, syötteen sisällön laadun (oikea pituus yms) virheilmotuksissa ja ohjelman kaatumisen estämisessä on vähän vielä ongelmaa. Työ saattaa näyttää vielä valitettavan keskeneräiseltä mutta koska sain eniten aikaavievän ongelman korjattua minulla on aikaa tehdä työtä ja voin saada sen hyvälle mallille oman ohjaajani demotilaisuuteen joka on pääsiäisloman jälkeen.</body>
 </html>

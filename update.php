@@ -33,6 +33,7 @@ if (!is_null($kayttaja)) {
 		naytaNakyma("views/profiilinpaivitys.php", array(
 		'kayttaja' => $kayttaja,
 		'virhe' => "Et kirjoittanut uutta salasanaasi uudelleen!",
+		'virheet' => $kayttaja->getVirheet()
 		)); }
 
 	 $kayttaja->setSalasana($_POST['password1']);
@@ -42,12 +43,21 @@ if (!is_null($kayttaja)) {
 		$user = Kayttaja::etsiKayttajaTunnuksilla($kayttaja->getTunnus(), $salasana);
 
 		if (!is_null($user)) {
+		   if($user->onkoKelvollinen()) {
 			$kayttaja->paivita();
 		        header('Location: etusivu.php');
+		  	$_SESSION['ilmoitus'] = "Päivitys onnistui!";
+		    } else { 
+			$virheet = $user->getVirheet();
+			naytaNakyma("views/profiilinpaivitys.php", array(
+			'kayttaja' => $kayttaja,
+			'virheet' => $virheet
+			)); }
 		} else {
 			naytaNakyma("views/profiilinpaivitys.php", array(
 			'kayttaja' => $kayttaja,
 			'virhe' => "Annoit väärän salasanan",
+			'virheet' => $kayttaja->getVirheet()
 			));
 
 			$salasana = $_POST['password'];
@@ -55,7 +65,8 @@ if (!is_null($kayttaja)) {
 	} else {
 		naytaNakyma("views/profiilinpaivitys.php", array(
 		'kayttaja' => $kayttaja,
-		'virhe' => "Uudet salasanat eivät täsmänneet!", request
+		'virhe' => "Uudet salasanat eivät täsmänneet!", 
+		'virheet' => $kayttaja->getVirheet(), request
 		));
 	}
 }

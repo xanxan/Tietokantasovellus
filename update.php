@@ -3,7 +3,7 @@
 require_once 'libs/utilities.php';
 require_once 'libs/models/user.php';
 
-$id = (int)$_GET['id'];
+$id = $_SESSION['kirjautunut'];
 $kayttaja = Kayttaja::etsiKayttajaIdlla($id);
 
 if (!is_null($kayttaja)) {
@@ -13,13 +13,13 @@ if (!is_null($kayttaja)) {
 	));
 } else { 
 	naytaNakyma("views/profiilinpaivitys.php", array(
-		'kayttaja' => null,
+		'kayttaja' => $kayttaja,
 		'virhe' => "Sinulla ei ole oikeuksia tähän sivuun",
 	));
 }
 
 
-	$kayttaja = new Kayttaja();
+	
 	$salasana = $_POST['password'];
 	$kayttaja->setSalasana($_POST['password1']);
 	$salasana2 = $_POST['password2'];

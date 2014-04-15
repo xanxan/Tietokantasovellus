@@ -1,5 +1,5 @@
 <?php $kayttaja = $data->kayttaja; ?>
-
+<input type="hidden" name="id" value="<?php echo $kayttaja->getId(); ?>">
 <div class="container">
 <h1>Päivitä käyttäjätietoja</h1>
 <form class="form-horizontal" role="form" action="update.php" method="POST">
@@ -38,7 +38,7 @@
   <input type="file" name="kuva" id="inputFile">
   <p class="help-block">Kuvan maksimikoko 700x700 pikseliä</p>
   </div>
-  </div>
+  </div><?php echo $data->virhe; ?>
 <div class="form-group">
 <div class="col-md-offset-2 col-md-10">
 <button type="submit" class="btn btn-warning">Tallenna</button>

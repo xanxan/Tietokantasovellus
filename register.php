@@ -39,15 +39,18 @@ if (empty($_POST["username"])) {
 	$tulos = Kayttaja::etsiKayttaja($kayttaja);
 	if($tulos == true) {
 	   naytaNakyma("rekisteröityminen.php", array(
-        'kayttaja' => $kayttaja,
-        'virhe' => "Virhe rekisteröitymisessä, käyttäjätunnus on jo varattu.",
+       		 'kayttaja' => $kayttaja,
+        	 'virhe' => "Virhe rekisteröitymisessä, käyttäjätunnus on jo varattu.",
         ));
 	} else {
+	 
 	   $kayttaja->lisaaKantaan();
-	   header('Location: etusivu.php');
+	   header('Location: login.php');
+	   $_SESSION['ilmoitus'] = "Rekisteröityminen onnistui, kirjaudu sisään.";
+	 
 	}
    } else {
-
+	
 	naytaNakyma("rekisteröityminen.php", array(
         'kayttaja' => $kayttaja,
         'virhe' => "Virhe rekisteröitymisessä, salasanat eivät täsmänneet.", request

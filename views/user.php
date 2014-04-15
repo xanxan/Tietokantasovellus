@@ -30,6 +30,6 @@
      <a type="button" href="update.php?id=<?php echo $kayttaja->getId() ?>" class="btn btn-xs btn-warning">Muokkaa tietoja</a>   
     </ul>
   </div>
-	<h1><?php echo $data->virhe; ?></h1>
+	<h1><?php  echo $data->virhe; ?></h1>
 </div>
 </div>

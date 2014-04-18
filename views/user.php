@@ -27,7 +27,9 @@
 	<h4>Liittynyt</h4>
 	<div class="value"><?php echo $kayttaja->getLiittymispaiva(); ?></div>
     </div>
-     <a type="button" href="update.php?id=<?php echo $kayttaja->getId() ?>" class="btn btn-xs btn-warning">Muokkaa tietoja</a>   
+     <?php if(tarkistaKirjautuminen() && $kayttaja->getId() == $_SESSION['kirjautunut']): ?>  
+	 <a type="button" href="update.php?id=<?php echo $kayttaja->getId() ?>" class="btn btn-xs btn-warning">Muokkaa tietoja</a>   
+     <?php  endif; ?>
     </ul>
   </div>
 	<h1><?php  echo $data->virhe; ?></h1>

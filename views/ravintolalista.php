@@ -1,6 +1,7 @@
 
         <div class="container">
             <h1>Ravintolat</h1>
+ <form role="form" action="ravintolalista.php" method="POST">
   <div class="form-group">   
 	<label for="select" class="col-md-2 control-label">Hintataso</label>
 	<div class="col-md-2">
@@ -84,6 +85,7 @@
     Päivitä! 
   </button>
 </div>
+</form>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -103,7 +105,7 @@
           <td><?php echo $ravintola->getArvio(); ?></td>
           <td><?php echo $ravintola->getHintataso(); ?></td>
           <td><?php echo $ravintola->getAukioloajat(); ?></td>
-          <td><a type="button" href="ravintolaprofiili.php?id<?php echo $ravintola->getId() ?>" class="btn btn-xs btn-success">Mene sivulle</a></td>
+          <td><a type="button" href="ravintola.php?id=<?php echo $ravintola->getId(); ?>" class="btn btn-xs btn-success">Mene sivulle</a></td>
         </tr>
 	<?php endforeach; ?>
        

@@ -97,9 +97,9 @@ class Kayttaja {
     public function paivita() {
 	$sql = "UPDATE kayttajat SET salasana = ?, kuvaus = ?, kuva = ? WHERE id = ?";
 	$kysely = getTietokantayhteys()->prepare($sql);
-	$kysely->execute(array($this->getSalasana(), $this->getKuvaus(), $this->getKuva(), $this->getId()));
+ 	$ok = $kysely->execute(array($this->getSalasana(), $this->getKuvaus(), $this->getKuva(), $this->getId()));
 
-	return null;
+	return $ok;
     }
 
     public function poistaKayttaja() {

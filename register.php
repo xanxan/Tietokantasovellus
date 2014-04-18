@@ -11,18 +11,18 @@ if(empty($_POST["username"]) && empty($_POST["password1"]) && empty($_POST["pass
 	));
 }
 $kayttaja = new Kayttaja();
-$kayttaja->setTunnus($_POST['username']);
-$kayttaja->setSalasana($_POST['password1']);
-$salasana2 = $_POST["password2"];
-$kayttaja->setKuvaus($_POST['kuvaus']);
-$kayttaja->setKuva($_POST['kuva']);
+$kayttaja->setTunnus(htmlspecialchars($_POST['username']));
+$kayttaja->setSalasana(htmlspecialchars($_POST['password1']));
+$salasana2 = htmlspecialchars($_POST["password2"]);
+$kayttaja->setKuvaus(htmlspecialchars($_POST['kuvaus']));
+$kayttaja->setKuva(htmlspecialchars($_POST['kuva']));
 
 if (empty($_POST["username"])) {
 	naytaNakyma("rekisteröityminen.php", array(
 		'virhe' => "Virhe rekisteröitymisessä, et antanut käyttäjätunnusta.",
 ));
    }
-	$kayttaja->setTunnus($_POST['username']);
+	$kayttaja->setTunnus(htmlspecialchars($_POST['username']));
 
    if (empty($_POST["password1"]) && empty($_POST["password2"])) {
    
@@ -32,8 +32,8 @@ if (empty($_POST["username"])) {
         ));
    }
 
-   $kayttaja->setSalasana($_POST['password1']);
-   $salasana2 = $_POST["password2"];
+   $kayttaja->setSalasana(htmlspecialchars($_POST['password1']));
+   $salasana2 = htmlspecialchars($_POST["password2"]);
 
    if($kayttaja->getSalasana() == $salasana2) {
 	$tulos = Kayttaja::etsiKayttaja($kayttaja);

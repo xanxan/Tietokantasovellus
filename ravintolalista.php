@@ -20,18 +20,19 @@
   $sivuja = ceil($ravintolaLkm/$montako);
  
   $ravintolat = Ravintola::etsiKaikkiRavintolat();
+  if(empty($_POST["hintataso"]) && empty($_POST["arvio"]) && empty($_POST["aukioloajat"]) && empty($_POST["tyyppi"]) && empty($_POST["sopivuustieto"]) && empty($_POST["järjestys"])) {
   	naytaNakyma("views/ravintolalista.php", array(
 		'sivuja' => $sivuja,
 		'lista' => $ravintolat
 
 	));
-
-  $hintataso = $_POST["hintataso"];
-  $arvio = $_POST["arvio"];
-  $aukioloajat = $_POST["aukioloajat"];
-  $tyyppi = $_POST["tyyppi"];
-  $sopivuustieto = $_POST["sopivuustieto"];
-  $jarjestys = $_POST["järjestys"];
+  }
+  $hintataso = htmlspecialchars($_POST["hintataso"]);
+  $arvio = htmlspecialchars($_POST["arvio"]);
+  $aukioloajat = htmlspecialchars($_POST["aukioloajat"]);
+  $tyyppi = htmlspecialchars($_POST["tyyppi"]);
+  $sopivuustieto = htmlspecialchars($_POST["sopivuustieto"]);
+  $jarjestys = htmlspecialchars($_POST["järjestys"]);
 
   $tulos = Ravintola::etsiRavintolat($hintataso, $arvio, $aukioloajat, $tyyppi, $sopivuustieto, $jarjestys);
   naytaNakyma("views/ravintolalista.php", array(

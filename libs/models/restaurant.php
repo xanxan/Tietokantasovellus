@@ -100,6 +100,33 @@ class Ravintola {
 		} return $tulokset;
 	}
 
+	public function etsiRavintolat($hintataso, $arvio, $aukioloajat, $tyyppi, $sopivuustieto, $jarjestys) {
+		$sql = "SELECT id, nimi, tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE aukioloajat = ? AND hintataso = ? AND tyyppi = ? ORDER BY nimi";
+
+
+	$kysely = getTietokantayhteys()->prepare($sql); 
+	$kysely->execute(array($aukioloajat, $hintataso, $tyyppi));
+	  $tulokset = array();
+                foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+                $ravintola = new Ravintola();
+                $ravintola->setId($tulos->id);
+                $ravintola->setNimi($tulos->nimi);
+                $ravintola->setTyyppi($tulos->id);
+                $ravintola->setOsoite($tulos->osoite);
+                $ravintola->setAukioloajat($tulos->aukioloajat);
+                $ravintola->setHintataso($tulos->hintataso);
+                $ravintola->setKuvaus($tulos->kuvaus);
+                $ravintola->setKuva($tulos->kuva);
+                $ravintola->setSuosikki($tulos->suosikki);
+                $ravintola->setInhokki($tulos->inhokki);
+                $ravintola->setArvosteluja($tulos->arvosteluja);
+                $ravintola->setKommentteja($tulos->kommentteja);
+
+
+                $tulokset[] = $ravintola;
+
+                } return $tulokset;
+	}
 
 	 public function lisaaKantaan() {
 	    $sql = "INSERT INTO ravintolat(id, aukioloajat, arvosteluja, hintataso, inhokki, kommentteja, kuva, kuvaus, nimi, osoite, suosikki, tyyppi) VALUES(?,?,0,?,0,0,?,?,?,?,0,?) RETURNING id";

@@ -8,18 +8,18 @@ if(empty($_POST['nimi']) && empty($_POST['osoite']) && empty($_POST['aukioloajat
 	  'ravintola' => new Ravintola(),
 	));
 }
-$uusiravintola->setNimi($_POST['nimi']);
-$uusiravintola->setTyyppi($_POST['tyyppi']);
-$uusiravintola->setId($_POST['id']);
-$uusiravintola->setAukioloajat($_POST['aukioloajat']);
-$uusiravintola->setArvosteluja($_POST['arvosteluja']);
-$uusiravintola->setHintataso($_POST['hintataso']);
-$uusiravintola->setInhokki($_POST['inhokki']);
-$uusiravintola->setKommentteja($_POST['kommentteja']);
-$uusiravintola->setKuva($_POST['kuva']);
-$uusiravintola->setKuvaus($_POST['kuvaus']);
-$uusiravintola->setOsoite($_POST['osoite']);
-$uusiravintola->setSuosikki($_POST['suosikki']);
+$uusiravintola->setNimi(htmlspecialchars($_POST['nimi']));
+$uusiravintola->setTyyppi(htmlspecialchars($_POST['tyyppi']));
+$uusiravintola->setId(htmlspecialchars($_POST['id']));
+$uusiravintola->setAukioloajat(htmlspecialchars($_POST['aukioloajat']));
+$uusiravintola->setArvosteluja(htmlspecialchars($_POST['arvosteluja']));
+$uusiravintola->setHintataso(htmlspecialchars($_POST['hintataso']));
+$uusiravintola->setInhokki(htmlspecialchars($_POST['inhokki']));
+$uusiravintola->setKommentteja(htmlspecialchars($_POST['kommentteja']));
+$uusiravintola->setKuva(htmlspecialchars($_POST['kuva']));
+$uusiravintola->setKuvaus(htmlspecialchars($_POST['kuvaus']));
+$uusiravintola->setOsoite(htmlspecialchars($_POST['osoite']));
+$uusiravintola->setSuosikki(htmlspecialchars($_POST['suosikki']));
 
 
 if ($uusiravintola->onkoKelvollinen()) {

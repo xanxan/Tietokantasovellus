@@ -1,5 +1,5 @@
 <?php
- 
+  
  require_once 'libs/utilities.php';
 
   /** Tiedosto, jonka tarkoituksena on näyttää ravintolan tiedot.
@@ -40,5 +40,10 @@
   $(function () {
 	$('#myTab a:last').tab('show')
   })
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+     e.target // activated tab
+     e.relatedTarget // previous tab
+  })
+
 </script>
 </div></div></div></div>

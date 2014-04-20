@@ -100,12 +100,12 @@ class Ravintola {
 		} return $tulokset;
 	}
 
-	public function etsiRavintolat($hintataso, $arvio, $aukioloajat, $tyyppi, $sopivuustieto, $jarjestys) {
-		$sql = "SELECT id, nimi, tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat WHERE aukioloajat = ? AND hintataso = ? AND tyyppi = ? ORDER BY nimi";
+	public function etsiRavintolat($hintataso, $arvio, $tyyppi, $jarjestys) {
+		$sql = "SELECT id, nimi, tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja, yleisarvio FROM ravintolat, arvostelut WHERE ravintolat.id=arvostelut.arvostelija_id AND hintataso = ? AND tyyppi = ? AND yleisarvio = ? ORDER BY ?";
 
 
 	$kysely = getTietokantayhteys()->prepare($sql); 
-	$kysely->execute(array($aukioloajat, $hintataso, $tyyppi));
+	$kysely->execute(array($hintataso, $arvio, $tyyppi, $jarjestys));
 	  $tulokset = array();
                 foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
                 $ravintola = new Ravintola();

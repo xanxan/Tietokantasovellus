@@ -10,13 +10,15 @@
 <div class="container">
 <div class="ravintola">
 <h1><?php echo $ravintola->getNimi(); ?></h1>
-<ul class="nav nav-tabs">
-<li class="active"><a href="#">Yhteystiedot</a></li>
-<li ><a href="#">Arviot ja arvostelut</a></li>
-<li ><a href="#">Viimeisimmät kommentit</a></li>
-<li ><a href="#">Kuvagalleria</a></li>
+<ul class="nav nav-tabs" id="myTab">
+<li class="active"><a href="#tab_1_0" data-toggle='tab'>Yhteystiedot</a></li>
+<li ><a href="#tab_1_1" data-toggle='tab'>Arviot ja arvostelut</a></li>
+<li ><a href="#tab_1_2" data-toggle='tab'>Viimeisimmät kommentit</a></li>
+<li ><a href="#tab_1_3" data-toggle='tab'>Kuvagalleria</a></li>
 </ul>
-<div class="container">
+<div class="panel panel-default"><div class='panel-body'>
+<div class='tab-content'>
+<div class="tab-pane in active" id='tab_1_0'>
 <h1>Yhteystiedot</h1>
 <ul>
 <h2 class="text-center">Lisätietoja</h2>
@@ -26,8 +28,17 @@
 <?php if(tarkistaOikeudet()): ?>
 <a type="button" href="edit.php?id=<?php echo $ravintola->getId() ?>" class="btn btn-xs btn-warning">Muokkaa tietoja</a>
  <?php  endif; ?>
+</div>
 </ul>
+
+<h1><?php echo $data->virhe; ?></h1></div>
+<div class='tab-pane fade' id='tab_1_1'><p>moi</p></div>
+<div class='tab-pane fade' id='tab_1_2'><p>moi2</p></div>
+<div class='tab-pane fade' id='tab_1_3'><p>moi3</p></div>
 </div>
-<h1><?php echo $data->virhe; ?></h1>
-</div>
-</div>
+<script>
+  $(function () {
+	$('#myTab a:last').tab('show')
+  })
+</script>
+</div></div></div></div>

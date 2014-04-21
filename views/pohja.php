@@ -16,8 +16,9 @@
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/bootstrap-theme.css" rel="stylesheet">
         <link href="../css/main.css" rel="stylesheet">
-	<link href="../js/bootstrap.js" rel="stylesheet">
-	<link href="../libs/jquery-2.1.0.min.js" rel="stylesheet">
+	<script src="../libs/jquery-2.1.0.min.js"></script>
+	<script src="../js/bootstrap.js"></script>
+	
     </head>
     <body>
            <nav class="navbar navbar-inverse" role="navigation">

@@ -28,3 +28,4 @@
 	return isset($_SESSION['admin']); 
 
   }
+

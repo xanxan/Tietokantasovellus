@@ -16,7 +16,7 @@ class Arvostelu {
 
   private $virheet = array();
 
-  public function_construct($id, $tunnus, $pv, $hintalaatu, $juomat, $palvelu, $ravintola, $nimi, $ruoka, $yleisarvio) {
+  public function __construct($id, $tunnus, $pv, $hintalaatu, $juomat, $palvelu, $ravintola, $nimi, $ruoka, $yleisarvio) {
 
 	$this->arvostelija_id = $id;
 	$this->arvostelija_tunnus = $tunnus;
@@ -92,15 +92,15 @@ class Arvostelu {
   }
 
   public function lisaaKantaan() {
-	$sql = "INSERT INTO arvostelut(arvostelija_id, arvostelijatunnus, arvostelupv, hintaLaatu, juomatarjonta, palvelu, ravintola_id, ravintolanimi, ruoka, yleisarvio) VALUES(?,?,'2014-04-20',?,?,?,?,?,?,?,) RETURNING id";
+	$sql = "INSERT INTO arvostelut(arvostelija_id, arvostelijatunnus, hintaLaatu, juomatarjonta, palvelu, ravintola_id, ravintolanimi, ruoka, yleisarvio, arvostelupv) VALUES(?,?,?,?,?,?,?,?,?,'2014-04-20')";
     $kysely = getTietokantayhteys()->prepare($sql);
 
-    $ok = $kysely->execute(array($this->getArvostelija_id(), $this->getArvostelijatunnus(), $this->getHintalaatu(), $this->getJuomatarjonta(), this->getPalvelu(), $this->getRavintola_id(), $this->getRavintolanimi(), $this->getRuoka(), $this->getYleisarvio()));
+    $ok = $kysely->execute(array($this->getArvostelija_id(), $this->getRavintolatunnus(), $this->getHintalaatu(), $this->getJuomatarjonta(), $this->getPalvelu(), $this->getRavintola_id(), $this->getRavintolanimi(), $this->getRuoka(), $this->getYleisarvio()));
     if ($ok) {
     return $ok;
 
   }
-     
+ }    
   public function paivita() {
 	$sql = "UPDATE arvostelut SET hintaLaatu = ?, juomatarjonta = ?, palvelu = ?, ruoka = ?, yleisarvio = ?  WHERE arvostelija_id = ? AND ravintola_id = ?";
 	$kysely = getTietokantayhteys()->prepare($sql);

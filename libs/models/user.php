@@ -93,7 +93,7 @@ class Kayttaja {
     return $ok;
 
     }
-     
+      
     public function paivita() {
 	$sql = "UPDATE kayttajat SET salasana = ?, kuvaus = ?, kuva = ? WHERE id = ?";
 	$kysely = getTietokantayhteys()->prepare($sql);

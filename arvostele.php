@@ -13,7 +13,7 @@
  $arvostelu->setArvostelija_id($_SESSION['kirjautunut']);
  $arvostelu->setRavintola_id($id);
 
- if (!is_null($ravintola) && !is_null($_SESSION['kirjautunut'])) {
+ if (!is_null($ravintola->getNimi()) && !is_null($ravintola) && !is_null($_SESSION['kirjautunut'])) {
 
 	if(empty($_POST['yleisarvio']) && empty($_POST['ruoka']) && empty($_POST['hintalaatu']) && empty($_POST['palvelu']) && empty($_POST['juomat'])) {	
 		naytaNakyma("views/arviolomake.php", array(
@@ -30,7 +30,7 @@
         $arvostelu->setRuoka($_POST['ruoka']);
         $arvostelu->setYleisarvio($_POST['yleisarvio']);
 
-	if (is_null($_POST['yleisarvio'])) {
+	if (isset($_POST['yleisarvio'])) {
 		naytaNakyma("views/arviolomake.php", array(
                 	'ravintola' => $ravintola,
 			'virheet' => "yleisarvio on pakollinen!", request
@@ -42,4 +42,11 @@
 	header('Location: ravintola.php?id='.$id);
 	
 	$_SESSION['ilmoitus'] = "Arvostelu lisätty onnistuneesti!";
+  } else {
+	naytaNakyma("views/arviolomake.php", array(
+                        
+                        'virheet' => "null!", request
+
+                ));
+
   }

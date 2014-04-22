@@ -1,24 +1,29 @@
+<?php $ravintola = $data->ravintola; ?>
+<input type="hidden" name="id" value="<?php echo $ravintola->getId(); ?>">
+<input type="hidden" name="nimi" value="<?php echo $ravintola->getNimi(); ?>">
 <div class="container">
 <h1>Arvostele ravintola <?php echo $data->ravintola->getNimi() ?></h1>
-<form class="form-horizontal" role="form" action="arvostele.php" method="POST">
+<form class="form-horizontal" id="arvio" role="form" action="arvostele.php?id=<?php echo $ravintola->getId(); ?>" method="POST">
+<input type="hidden" name="id" value="<?php //echo $ravintola->getId(); ?>">
+<input type="hidden" name="nimi" value="<?php //echo $ravintola->getNimi(); ?>">
 <fieldset> 
 <div class="form-group">
 <label for="select" class="col-md-2 control-label">Yleisarvio</label>
 <div class="col-md-2">
-        <select id="yleisarvio" class="form-control" name="yleisarvio">
-          <option value=0 selected='selected'>Valitse</option>
-          <option VALUE=1>Surkea</option>
-          <option VALUE=2>Tyydyttävä</option>
-          <option VALUE=3>Hyvä</option>
-          <option VALUE=4>Mainio</option>
-          <option VALUE=5>Erinomainen</option>
+        <select class="form-control" form="arvio" name="yleisarvio">
+          <option value='' selected='selected'>Valitse</option>
+          <option VALUE='1'>Surkea</option>
+          <option VALUE='2'>Tyydyttävä</option>
+          <option VALUE='3'>Hyvä</option>
+          <option VALUE='4'>Mainio</option>
+          <option VALUE='5'>Erinomainen</option>
         </select>
 </div>
   </div>
 <div class="form-group">
    <label for="select" class="col-md-2 control-label">Ruoka</label>
           <div class="col-md-2">
-<select id="ruoka" class="form-control" name="ruoka">
+<select  class="form-control" form="arvio" name="ruoka">
 	<option value=0 selected='selected'>Valitse</option>
           <option VALUE=1>Surkea</option>
           <option VALUE=2>Tyydyttävä</option>
@@ -31,7 +36,7 @@
 <div class="form-group">
 <label for="select" class="col-md-2 control-label">Hinta/laatu -suhde</label>
 <div class="col-md-2">
-<select id="hintalaatu" class="form-control" name="hintalaatu">
+<select  class="form-control" form="arvio" name="hintalaatu">
 	<option value=0 selected='selected'>Valitse</option>
           <option VALUE=1>Surkea</option>
           <option VALUE=2>Tyydyttävä</option>
@@ -44,7 +49,7 @@
 <div class="form-group">
 <label for="select" class="col-md-2 control-label">Palvelu</label>
 <div class="col-md-2">
-<select id="palvelu" class="form-control" name="palvelu">
+<select class="form-control" form="arvio" name="palvelu">
         <option value=0 selected='selected'>Valitse</option>
           <option VALUE=1>Surkea</option>
           <option VALUE=2>Tyydyttävä</option>
@@ -57,7 +62,7 @@
 <div class="form-group">
 <label for="select" class="col-md-2 control-label">Juomatarjonta</label>
 <div class="col-md-2">
-<select id="juomat" class="form-control" name="juomat">
+<select  class="form-control" form="arvio" name="juomat">
         <option value=0 selected='selected'>Valitse</option>
           <option VALUE=1>Surkea</option>
           <option VALUE=2>Tyydyttävä</option>
@@ -73,5 +78,6 @@
 <button type="submit" class="btn btn-default">Lähetä</button>
 </div>
 </div>
+<?php echo $data->virheet; ?>
 </form>
 </div>

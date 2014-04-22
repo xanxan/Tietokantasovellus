@@ -61,21 +61,21 @@
 	 <div>
 	    <dl class="dl-horizontal">
 		<dt>Yleisarvio:</dt> 
-		<dd><?php for ($x=1; $x<=$data->yleisarvio; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+		<dd><?php tulostaTahdet($data->yleisarvio); ?></dd>
 	    </dl>
          </div>
 
 	<div>
 	   <dl class="dl-horizontal">
                 <dt>Ruoka:</dt>    
-                <dd><?php for ($x=1; $x<=$data->ruoka; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+                <dd><?php tulostaTahdet($data->ruoka); ?></dd>
            </dl>
 	</div>
 
 	<div>
 	   <dl class="dl-horizontal">
                 <dt>Hinta/laatu -suhde:</dt>    
-                <dd><?php for ($x=1; $x<=$data->hintalaatu; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+                <dd><?php tulostaTahdet($data->hintalaatu); ?></dd>
            </dl>
 	</div>
 	<!-- Seuraava tähti on tarkoituksella jätetty ylimääräinen koska ilman sitä teksti malli ei jostain syystä toimi enkä osaa sitä korjata. -->	
@@ -89,14 +89,14 @@
 	 <div>
 	    <dl class="dl-horizontal">
                 <dt>Palvelu:</dt>
-                <dd><?php for ($x=1; $x<=$data->palvelu; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+                <dd><?php tulostaTahdet($data->palvelu); ?></dd>
             </dl>
 	</div>
  
 	<div>
            <dl class="dl-horizontal">
                 <dt>Juomatarjonta:</dt>
-                <dd><?php for ($x=1; $x<=$data->juomat; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+                <dd><?php  tulostaTahdet($data->juomat); ?></dd>
            </dl>
         </div>
   

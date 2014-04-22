@@ -1,22 +1,20 @@
 <?php $ravintola = $data->ravintola; ?>
-<input type="hidden" name="id" value="<?php echo $ravintola->getId(); ?>">
-<input type="hidden" name="nimi" value="<?php echo $ravintola->getNimi(); ?>">
 <div class="container">
 <h1>Arvostele ravintola <?php echo $data->ravintola->getNimi() ?></h1>
 <form class="form-horizontal" id="arvio" role="form" action="arvostele.php?id=<?php echo $ravintola->getId(); ?>" method="POST">
-<input type="hidden" name="id" value="<?php //echo $ravintola->getId(); ?>">
-<input type="hidden" name="nimi" value="<?php //echo $ravintola->getNimi(); ?>">
+<input type="hidden" name="id" value="<?php echo $ravintola->getId(); ?>">
+<input type="hidden" name="nimi" value="<?php echo $ravintola->getNimi(); ?>">
 <fieldset> 
 <div class="form-group">
 <label for="select" class="col-md-2 control-label">Yleisarvio</label>
 <div class="col-md-2">
         <select class="form-control" form="arvio" name="yleisarvio">
           <option value='' selected='selected'>Valitse</option>
-          <option VALUE='1'>Surkea</option>
-          <option VALUE='2'>Tyydyttävä</option>
-          <option VALUE='3'>Hyvä</option>
-          <option VALUE='4'>Mainio</option>
-          <option VALUE='5'>Erinomainen</option>
+          <option value='1'>Surkea</option>
+          <option value='2'>Tyydyttävä</option>
+          <option value='3'>Hyvä</option>
+          <option value='4'>Mainio</option>
+          <option value='5'>Erinomainen</option>
         </select>
 </div>
   </div>

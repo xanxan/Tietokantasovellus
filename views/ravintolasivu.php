@@ -31,7 +31,8 @@
 <div id="teamcontent" class="clearfix">
 <img src="<?php echo $ravintola->getKuva(); ?>" alt="kuva" class="img-rounded"> 
 <?php if(tarkistaKirjautuminen()): ?>
-   <a type="button" class="btn btn-warning" href="arvostele.php?id=<?php echo $ravintola->getId() ?>">Arvostele ravintola</a>
+	<?php if(!isset($data->arvosteltu)){ ?>
+ 	  <a type="button" class="btn btn-warning" href="arvostele.php?id=<?php echo $ravintola->getId() ?>">Arvostele ravintola</a> <?php } ?>
    <?php if(isset($data->suosikki)) { ?>
 	<a type="button" class="btn btn-info" href="poistaSuosikki.php?id=<?php echo $ravintola->getId() ?>">Poista suosikeista</a>	
 
@@ -52,13 +53,55 @@
 </ul>
 
 <h1><?php echo $data->virhe; ?></h1></div>
-<div class='tab-pane fade' id='tab_1_1'><h1>Arviot ja arvostelut</h1>
-	<div><label class="col-sm-2 control-label">Yleisarvio</label></div>
-	<div><label class="col-sm-2 control-label">Ruoka</label></div>  
-	<div><label class="col-sm-2 control-label">Hinta/laatu -suhde</label></div>  
-	<div><label class="col-sm-2 control-label">Palvelu</label></div>  
-	<div><label class="col-sm-2 control-label">Juomatarjonta</label></div>  	
+<div class='tab-pane fade' id='tab_1_1'>
+  <h1>Arviot ja arvostelut</h1>
+    <ul>
+        <div>
 
+	 <div>
+	    <dl class="dl-horizontal">
+		<dt>Yleisarvio:</dt> 
+		<dd><?php for ($x=1; $x<=$data->yleisarvio; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+	    </dl>
+         </div>
+
+	<div>
+	   <dl class="dl-horizontal">
+                <dt>Ruoka:</dt>    
+                <dd><?php for ($x=1; $x<=$data->ruoka; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+           </dl>
+	</div>
+
+	<div>
+	   <dl class="dl-horizontal">
+                <dt>Hinta/laatu -suhde:</dt>    
+                <dd><?php for ($x=1; $x<=$data->hintalaatu; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+           </dl>
+	</div>
+	<!-- Seuraava tähti on tarkoituksella jätetty ylimääräinen koska ilman sitä teksti malli ei jostain syystä toimi enkä osaa sitä korjata. -->	
+	<div>
+	   <dl class="dl-horizontal">
+                <dt></dt>    
+                <dd><span class="glyphicon glyphicon-star"></span></dd>
+           </dl>
+	</div>
+       
+	 <div>
+	    <dl class="dl-horizontal">
+                <dt>Palvelu:</dt>
+                <dd><?php for ($x=1; $x<=$data->palvelu; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+            </dl>
+	</div>
+ 
+	<div>
+           <dl class="dl-horizontal">
+                <dt>Juomatarjonta:</dt>
+                <dd><?php for ($x=1; $x<=$data->juomat; $x++) { ?><span class="glyphicon glyphicon-star"></span><?php } ?></dd>
+           </dl>
+        </div>
+  
+    </div> 
+  </ul>
 </div>
 <div class='tab-pane fade' id='tab_1_2'><h1>Viimeisimmät kommentit</h1></div>
 <div class='tab-pane fade' id='tab_1_3'><h1>Kuvagalleria</h1></div>

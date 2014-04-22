@@ -7,20 +7,22 @@
 
  $id = (int)$_GET['id'];
  $ravintola = Ravintola::etsiRavintolaIdlla($id);
- $virhe = null;
  $arvostelu = new Arvostelu();
  $nimi = Kayttaja::etsiKayttajaIdlla($_SESSION['kirjautunut']);
- if (!is_null($ravintola) && !is_null($_SESSION['kirjautunut'])) {
-	if(empty($_GET['yleisarvio']) && empty($_GET['ruoka']) && empty($_GET['hintalaatu']) && empty($_GET['palvelu']) && empty($_GET['juomat'])) {	
-	naytaNakyma("views/arviolomake.php", array(
-		'ravintola' => $ravintola
-	)); }
-  
-  } 
+ $arvostelu->setRavintolanimi($ravintola->getNimi());
+ $arvostelu->setArvostelija_id($_SESSION['kirjautunut']);
+ $arvostelu->setRavintola_id($id);
 
-	$arvostelu->setArvostelija_id($_SESSION['kirjautunut']);
-        $arvostelu->setRavintola_id($id);
-        $arvostelu->setArvostelija_tunnus($nimi->getTunnus());
+ if (!is_null($ravintola) && !is_null($_SESSION['kirjautunut'])) {
+
+	if(empty($_POST['yleisarvio']) && empty($_POST['ruoka']) && empty($_POST['hintalaatu']) && empty($_POST['palvelu']) && empty($_POST['juomat'])) {	
+		naytaNakyma("views/arviolomake.php", array(
+			'ravintola' => $ravintola
+		)); }
+  
+   
+
+        $arvostelu->setArvostelijatunnus($nimi->getTunnus());
         $arvostelu->setHintaLaatu($_POST['hintalaatu']);
         $arvostelu->setJuomatarjonta($_POST['juomat']);
         $arvostelu->setPalvelu($_POST['palvelu']);
@@ -31,12 +33,13 @@
 	if (is_null($_POST['yleisarvio'])) {
 		naytaNakyma("views/arviolomake.php", array(
                 	'ravintola' => $ravintola,
-			'virheet' => "yleisarvio on pakollinen!"
-
+			'virheet' => "yleisarvio on pakollinen!", request
+			
         	));
  	}
-	
+	$arvostelu->setYleisarvio($_POST['yleisarvio']);
  	$arvostelu->lisaaKantaan();
 	header('Location: ravintola.php?id='.$id);
 	
 	$_SESSION['ilmoitus'] = "Arvostelu lisätty onnistuneesti!";
+  }

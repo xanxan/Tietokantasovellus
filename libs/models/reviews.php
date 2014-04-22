@@ -95,7 +95,7 @@ class Arvostelu {
 	$sql = "INSERT INTO arvostelut(arvostelija_id, arvostelijatunnus, hintaLaatu, juomatarjonta, palvelu, ravintola_id, ravintolanimi, ruoka, yleisarvio, arvostelupv) VALUES(?,?,?,?,?,?,?,?,?,'2014-04-20')";
     $kysely = getTietokantayhteys()->prepare($sql);
 
-    $ok = $kysely->execute(array($this->getArvostelija_id(), $this->getRavintolatunnus(), $this->getHintalaatu(), $this->getJuomatarjonta(), $this->getPalvelu(), $this->getRavintola_id(), $this->getRavintolanimi(), $this->getRuoka(), $this->getYleisarvio()));
+    $ok = $kysely->execute(array($this->getArvostelija_id(), $this->getArvostelijatunnus(), $this->getHintalaatu(), $this->getJuomatarjonta(), $this->getPalvelu(), $this->getRavintola_id(), $this->getRavintolanimi(), $this->getRuoka(), $this->getYleisarvio()));
     if ($ok) {
     return $ok;
 
@@ -141,7 +141,7 @@ class Arvostelu {
   }
 
   public function getRavintola_id() {
-        return $this->Ravintola_id;
+        return $this->ravintola_id;
 
   }
 

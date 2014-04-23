@@ -35,7 +35,7 @@ class Arvostelu {
 	$arvostelu = new Arvostelu();
 	$arvostelu->setArvostelija_id($tulos->arvostelija_id);
 	$arvostelu->setRavintola_id($tulos->ravintola_id);
-	$arvostelu->setArvostelija_tunnus($tulos->arvostelija_tunnus);
+	$arvostelu->setArvostelijatunnus($tulos->arvostelijatunnus);
 	$arvostelu->setArvostelupv($tulos->arvostelupv);
 	$arvostelu->setHintaLaatu($tulos->hintaLaatu);
 	$arvostelu->setJuomatarjonta($tulos->juomatarjonta);
@@ -43,6 +43,7 @@ class Arvostelu {
 	$arvostelu->setRavintolanimi($tulos->ravintolanimi);
 	$arvostelu->setRuoka($tulos->ruoka);
 	$arvostelu->setYleisarvio($tulos->yleisarvio);
+        return $arvostelu;
 
   }  
 
@@ -62,22 +63,35 @@ class Arvostelu {
 
   public function etsiRavintolanArvostelut($ravintola_id) {
 
-        $sql = "SELECT arvostelija_tunnus, arvostelupv, hintaLaatu, juomatarjonta, palvelu, ravintolanimi, ruoka, yleisarvio FROM Arvostelut WHERE ravintola_id = ?";
+        $sql = "SELECT arvostelijatunnus, arvostelupv, hintaLaatu, juomatarjonta, palvelu, ravintolanimi, ruoka, yleisarvio FROM Arvostelut WHERE ravintola_id = ?";
         $kysely = getTietokantayhteys()->prepare($sql);
         $kysely->execute(array($ravintola_id));
   
         $tulokset = array();
-        foreach($kysely->fetchAll(PDO::FETCH_OMJ) as $tulos) {
-                $arvostelu = Self::uusiArvostelu($tulos);
+        foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+                $arvostelu = self::uusiArvostelu($tulos);
                 $tulokset[] = $arvostelu;
         }
         return $tulokset;
   }
- 
-  public static function lukumaara() {
-  	$sql = "SELECT count(*) FROM Arvostelut";
+  public function onkoArvosteltu($ravintola, $kayttaja) {
+	$sql = "SELECT arvostelijatunnus FROM Arvostelut WHERE ravintola_id = ? AND arvostelija_id = ? LIMIT 1";
+	$kysely = getTietokantayhteys()->prepare($sql);
+	$kysely->execute(array($ravintola, $kayttaja));
+	$tulos = $kysely->fetchObject();
+
+	if ($tulos == null) {
+	   return null;
+	} else {
+		$ok = new Arvostelu();
+		$ok->setArvostelijatunnus($tulos->arvostelijatunnus);
+		return $ok;
+	}
+ }
+  public static function lukumaara($id) {
+  	$sql = "SELECT count(ravintola_id) FROM Arvostelut WHERE ravintola_id = ?";
   	$kysely = getTietokantayhteys()->prepare($sql);
-  	$kysely->execute();
+  	$kysely->execute(array($id));
 	return $kysely->fetchColumn();
   }
 
@@ -216,7 +230,7 @@ class Arvostelu {
   }
 
   public function setYleisarvio($arvio) {
-        $this->Yleisarvio = $arvio;
+        $this->yleisarvio = $arvio;
 
   }
 }

@@ -29,3 +29,8 @@
 
   }
 
+  function tulostaTahdet($maara) {
+	for ($x=1; $x<=$maara; $x++) { 
+	   ?><span class="glyphicon glyphicon-star"></span>
+	<?php }
+  }

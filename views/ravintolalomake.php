@@ -1,71 +1,59 @@
+<?php $ravintola = $data->ravintola; ?>
 <div class="container">
 <h1>Lisää ravintola</h1>
-<form class="form-horizontal" role="form" action="uusiravintola.php" method="POST">
+<form class="form-horizontal" role="form" action="insert.php"  method="POST">
    <div class="form-group">
     
     <label for="inputName" class="col-sm-2 control-label">Ravintolan nimi</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputName" placeholder="Nimi">
+      <input type="text" class="form-control" id="inputName" name="nimi" placeholder="Nimi">
     </div>
   </div>
   <div class="form-group">
     <label for="inputAddress" class="col-sm-2 control-label">Katuosoite</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputAddress" placeholder="Osoite">
+      <input type="text" class="form-control" id="inputAddress" name="osoite" placeholder="Osoite">
     </div>
   </div>
  <div class="form-group">
     <label for="inputText" class="col-sm-2 control-label">Aukioloajat</label>
-    <div class="col-sm-10">      <input type="text" class="form-control" id="inputText" placeholder="Aukioloajat">
+    <div class="col-sm-10">      <input type="text" class="form-control" name="aukioloajat" id="inputText" placeholder="Aukioloajat">
     </div>
   </div>
   <div class="form-group">    <label for="text" class="col-sm-2 control-label">Kuvaus</label>
-    <div class="col-sm-10">      <textarea type="text" class="form-control" rows="3"  placeholder="Kuvaus"></textarea>
+    <div class="col-sm-10">      <textarea type="text" class="form-control" rows="3"  name="kuvaus" placeholder="Kuvaus"></textarea>
     </div>
   </div>
 <div class="form-group">
-<label for="select" class="col-md-2 control-label">Alustava arvio</label>
-<div class="col-md-2">
-        <select id="textInput" class="form-control" value="<?php echo $data->arvio; ?>" name="arvio">
-          <option>Valitse</option>
-          <option>*</option>
-          <option>**</option>
-          <option>***</option>
-          <option>****</option>
-          <option>*****</option>
-        </select>
-</div>
-  </div>
-<div class="form-group">
-   <label for="select" class="col-md-2 control-label">Tyyppi</label>
+ <label for="select1" class="col-md-2 control-label">Tyyppi</label>
           <div class="col-md-2">
-<select id="textInput" class="form-control" value="<?php echo $data->tyyppi; ?>" name="tyyppi">
-          <option>Valitse</option>
-          <option>Eurooppalaiset</option>
-          <option>Aasialaiset</option>
-          <option>Kasvisravintolat</option>
-          <option>Kahvilat</option>
-          <option>Baarit</option>
+<select id="select1" class="form-control"  name="tyyppi">
+          <option value='eurooppalainen' selected='selected'>Eurooppalaiset</option>
+          <option value='aasialainen'>Aasialaiset</option>
+          <option value='kasvisravintola'>Kasvisravintolat</option>
+	  <option value='pikaruokaravintola'>Pikaruokaravintolat</option>
+          <option value='kahvila'>Kahvilat</option>
+          <option value='baari'>Baarit</option>
+	  <option value='muu'>Muut</option>
         </select>
 </div>
  </div>
 <div class="form-group">
-<label for="select" class="col-md-2 control-label">Hintataso</label>
+<label for="select2" class="col-md-2 control-label">Hintataso</label>
 <div class="col-md-2">
-<select id="textInput" class="form-control" value="<?php echo $data->hintataso; ?>" name="hintataso">
-          <option>Valitse</option>
-<option>€</option>
-<option>€€</option>
-<option>€€€</option>
-<option>€€€€</option>
-<option>€€€€€</option>
+     <select id="select2" class="form-control" name="hintataso">
+	<option value='€' selected='selected'>€</option>
+	<option value='€€'>€€</option>
+	<option value='€€€'>€€€</option>
+	<option value='€€€€'>€€€€</option>
+	<option value='€€€€€'>€€€€€</option>
      </select>
 </div>
   </div>
 <div class="form-group">
     <label for="inputFile" class="col-sm-2 control-label">Ravintolan kuva</label>
 <div class="col-sm-10">
-  <input type="file" id="inputFile">
+  <input type="file" name="kuva" id="inputFile">
   </div>
   </div>
 
@@ -73,26 +61,26 @@
 <h4>Suositukset</h4>
 <div class="form-group">
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox1" value="option1"> Lapsiperheet
+  <input type="checkbox" name="lapset" id="inlineCheckbox1" value="ok"> Lapsiperheet
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox2" value="option2"> Kasvissyöjät
+  <input type="checkbox" name="kasvis" id="inlineCheckbox2" value="ok"> Kasvissyöjät
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox3" value="option3"> Vegaanit
+  <input type="checkbox" id="inlineCheckbox3" name="vege" value="ok"> Vegaanit
 </label>
 </div>
 </div>
 <div class="col-md-offset-2 col-sm-10">
 <div class="form-group">
 <label class="checkbox-inline">
-<input type="checkbox" id="inlineCheckbox1" value="option1"> Buffet-pöytä
+<input type="checkbox" id="inlineCheckbox1" value="ok" name="buffet"> Buffet-pöytä
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox2" value="option2"> Aamiainen/brunssi
+  <input type="checkbox" id="inlineCheckbox2" value="ok" name="aamu"> Aamiainen/brunssi
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox3" value="option3"> Lounas
+  <input type="checkbox" id="inlineCheckbox3" value="ok" name="lounas"> Lounas
 </label>
 </div>
 </div>
@@ -100,22 +88,32 @@
 <div class="form-group">
 <label class="checkbox-inline">
 
-  <input type="checkbox" id="inlineCheckbox1" value="option1"> A-oikeudet
+  <input type="checkbox" id="inlineCheckbox1" value="ok" name="oikeus"> A-oikeudet
 </label>
 
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox2" value="option2"> Varaus etukäteen
+  <input type="checkbox" id="inlineCheckbox2" value="ok" name="varaus"> Varaus etukäteen
 </label>
 
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox3" value="option3"> K18
+  <input type="checkbox" id="inlineCheckbox3" value="ok" name="k18"> K18
 </label>
 </div>
 </div>
+<div class="col-md-offset-2 col-sm-10">
+<div class="form-group">
+<label class="checkbox-inline">
+
+  <input type="checkbox" id="inlineCheckbox1" value="ok" name="puku"> Pukupakko
+</label>
+</div>
+</div>
+
  <div class="form-group">
 <div class="col-md-offset-2 col-md-10">
 <button type="submit" class="btn btn-default">Lähetä</button>
 </div>
 </div>
+<?php echo $data->virheet; ?>
 </form>
 </div>

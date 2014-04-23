@@ -19,11 +19,11 @@
     <div class="col-sm-2 control-label">
         <select id="yleisarvio" class="form-group" name="yleisarvio">
           <option value='' selected='selected'>Yleisarvio</option>
-          <option value="*">*</option>
-          <option value="**">**</option>
-          <option value="***">***</option>
-          <option value="****">****</option>
-          <option value="*****">*****</option>
+          <option value="1">*</option>
+          <option value="2">**</option>
+          <option value="3">***</option>
+          <option value="4">****</option>
+          <option value="5">*****</option>
         </select>
     </div>
   </div>
@@ -78,7 +78,7 @@
         <tr>
           <td><?php echo $ravintola->getNimi(); ?></td>
           <td><?php echo $ravintola->getOsoite(); ?></td>
-          <td><?php echo $ravintola->getArvio(); ?></td>
+          <td><?php tulostaTahdet($ravintola->getArvio()); ?></td>
           <td><?php echo $ravintola->getHintataso(); ?></td>
           <td><?php echo $ravintola->getAukioloajat(); ?></td>
           <td><a type="button" href="ravintola.php?id=<?php echo $ravintola->getId(); ?>" class="btn btn-xs btn-success">Mene sivulle</a></td>

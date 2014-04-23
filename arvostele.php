@@ -29,8 +29,7 @@
         $arvostelu->setRavintolanimi($ravintola->getNimi());
         $arvostelu->setRuoka($_POST['ruoka']);
         $arvostelu->setYleisarvio($_POST['yleisarvio']);
-
-	if (isset($_POST['yleisarvio'])) {
+	if (!isset($_POST['yleisarvio'])) {
 		naytaNakyma("views/arviolomake.php", array(
                 	'ravintola' => $ravintola,
 			'virheet' => "yleisarvio on pakollinen!", request

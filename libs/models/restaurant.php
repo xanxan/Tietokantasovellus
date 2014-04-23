@@ -4,7 +4,7 @@ require_once 'libs/tietokantayhteys.php';
 class Ravintola {
 
 	private $virheet = array();
-
+	private $arvio;
 	private $id;
 	private $nimi;
 	private $tyyppi;
@@ -18,7 +18,7 @@ class Ravintola {
 	private $arvosteluja;
 	private $kommentteja;
 
-	public function __construct($id, $nimi, $tyyppi, $osoite, $aukioloajat, $hintataso, $kuvaus, $kuva) {
+	public function __construct($id, $nimi, $tyyppi, $osoite, $aukioloajat, $hintataso, $kuvaus, $kuva, $arvio) {
 		$this->id = $id;
 		$this->nimi = $nimi;
 		$this->tyyppi = $tyyppi;
@@ -31,7 +31,7 @@ class Ravintola {
 		$this->inhokki = 0;
 		$this->arvosteluja = 0;
 		$this->kommentteja = 0;
-
+		$this->arvio = $arvio;
 	}
 	
 	public function uusiRavintola($tulos) {
@@ -94,10 +94,26 @@ class Ravintola {
                 $ravintola->setArvosteluja($tulos->arvosteluja);
                 $ravintola->setKommentteja($tulos->kommentteja);
 
-                
+                $arvio = $ravintola->arvio();
+		$ravintola->setArvio($arvio);
 		$tulokset[] = $ravintola;
 
 		} return $tulokset;
+	}
+	
+	public function arvio() {
+		$sql = "SELECT yleisarvio FROM Arvostelut WHERE ravintola_id = ?";
+		$kysely = getTietokantayhteys()->prepare($sql);
+		$kysely->execute(array($this->getId()));
+		$arvio = 0;
+		$lkm = 0;
+		foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
+			$arvio = $arvio + $tulos->yleisarvio;
+			$lkm++;
+
+		}
+
+		return $arvio / $lkm;
 	}
 
 	public function etsiRavintolat($hintataso, $arvio, $tyyppi, $jarjestys) {
@@ -129,16 +145,16 @@ class Ravintola {
 	}
 
 	 public function lisaaKantaan() {
-	    $sql = "INSERT INTO ravintolat(id, aukioloajat, arvosteluja, hintataso, inhokki, kommentteja, kuva, kuvaus, nimi, osoite, suosikki, tyyppi) VALUES(?,?,0,?,0,0,?,?,?,?,0,?) RETURNING id";
+	    $sql = "INSERT INTO ravintolat(aukioloajat, arvosteluja, hintataso, inhokki, kommentteja, kuva, kuvaus, nimi, osoite, suosikki, tyyppi) VALUES(?,0,?,0,0,?,?,?,?,0,?) RETURNING id";
 	    $kysely = getTietokantayhteys()->prepare($sql);
 
-	    $ok = $kysely->execute(array($this->getAukioloajat(), $this->getArvosteluja(), $this->getHintataso(), $this->getInhokki(), $this->getKommentteja(), $this->getKuva(), $this->getKuvaus(), $this->getNimi(), $this->getOsoite(), $this->getSuosikki(), $this->getTyyppi()));
+	    $ok = $kysely->execute(array($this->getAukioloajat(),  $this->getHintataso(), $this->getKuva(), $this->getKuvaus(), $this->getNimi(), $this->getOsoite(), $this->getTyyppi()));
  	   if ($ok) {
  	     //Haetaan RETURNING-määreen palauttama id.
  	     //HUOM! Tämä toimii ainoastaan PostgreSQL-kannalla!
  	     $this->id = $kysely->fetchColumn();
  	   }
- 	   return $ok;
+ 	   return $this->id;
  	 }
 
 	 public function paivita() {
@@ -276,8 +292,11 @@ class Ravintola {
 		return $this->kuvaus;
         }
 	
+	public function setArvio($arvio) {
+		$this->arvio = $arvio;
+	}
 	public function getArvio() {
-		return "***";
+		return $this->arvio;
 	}
         public function setKuvaus($kuvaus) {
 		$this->kuvaus = $kuvaus;

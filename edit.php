@@ -1,50 +1,75 @@
 <?php
  require_once 'libs/utilities.php';
  require_once 'libs/models/restaurant.php';
+ require_once 'libs/models/preferences.php';
 
 $id = (int)$_GET['id'];
 $ravintola = Ravintola::etsiRavintolaIdlla($id);
-$virhe = null;
+$suositukset = Sopivuustiedot::haeRavintolanTiedot($ravintola);
 
-if (!is_null($ravintola)) {
-  if(empty($_POST['osoite']) && empty($_POST['aukioloajat'])) {
+if(tarkistaKirjautuminen() && tarkistaOikeudet() && isset($ravintola) && isset($suositukset)) {
+   if(empty($_POST['osoite']) && empty($_POST['aukioloajat']) && empty($_POST['kuvaus'])) {
 	naytaNakyma("views/ravintolanpaivitys.php", array(
-	'ravintola' => $ravintola,
-	'nimi' => $ravintola->getNimi()
-	));
-  }
-  $ravintola->setNimi(htmlspecialchars($_POST['nimi']));
-  $ravintola->setTyyppi(htmlspecialchars($_POST['tyyppi']));
-  $ravintola->setId(htmlspecialchars($_POST['id']));
-  $ravintola->setAukioloajat(htmlspecialchars($_POST['aukioloajat']));
-  $ravintola->setArvosteluja(htmlspecialchars($_POST['arvosteluja']));
-  $ravintola->setHintataso(htmlspecialchars($_POST['hintataso']));
-  $ravintola->setInhokki(htmlspecialchars($_POST['inhokki']));
-  $ravintola->setKommentteja(htmlspecialchars($_POST['kommentteja']));
-  $ravintola->setKuva(htmlspecialchars($_POST['kuva']));
-  $ravintola->setKuvaus(htmlspecialchars($_POST['kuvaus']));
-  $ravintola->setOsoite(htmlspecialchars($_POST['osoite']));
-  $ravintola->setSuosikki($_POST['suosikki']);
+		'ravintola' => $ravintola,
+		'suositukset' => $suositukset
+		));
+   	}
+   $ravintola->setAukioloajat(htmlspecialchars($_POST['aukioloajat']));
+   $ravintola->setHintataso(htmlspecialchars($_POST['hintataso']));
+   $ravintola->setKuvaus(htmlspecialchars($_POST['kuvaus']));
+   $ravintola->setOsoite(htmlspecialchars($_POST['osoite']));
+   $ravintola->setKuva(htmlspecialchars($_POST['kuva']));
+  
+
+   $suositukset->setRavintola_id($id);
+   $suositukset->setKasvissyojat($_POST['kasvis']);
+   $suositukset->setLapsiperheet($_POST['lapset']);
+   $suositukset->setVegaanit($_POST['vege']);
+   $suositukset->setLounas($_POST['lounas']);
+   $suositukset->setAamiainenBrunssi($_POST['aamu']);
+   $suositukset->setAnniskeluoikeus($_POST['oikeus']);
+   $suositukset->setBuffet($_POST['buffet']);
+   $suositukset->setK18($_POST['k18']);
+   $suositukset->setPukupakko($_POST['puku']);
+   $suositukset->setVarauspakko($_POST['varaus']);
 
 
-  if ($ravintola->onkoKelvollinen()) {
-    $ravintola->paivita();
-    $_SESSION['ilmoitus'] = "Ravintola päivitetty onnistuneesti.";
+   if (!isset($_POST['osoite'])) {
+       naytaNakyma("views/ravintolanpaivitys.php", array(
+	  'ravintola' => $ravintola,
+          'suositukset' => $suositukset,
+          'virheet' => "Osoite ei saa olla tyhjä!"
+       ));
+   }
 
+   $ravintola->setOsoite(htmlspecialchars($_POST['osoite']));
 
-  //ravintola päivitettiin kantaan onnistuneesti, lähetetään käyttäjä eteenpäin
-  header('Location: ravintolalista.php');
+   if (!isset($_POST['aukioloajat'])) {
+       naytaNakyma("views/ravintolanpaivitys.php", array(
+       	 'ravintola' => $ravintola,
+         'suositukset' => $suositukset,
+         'virheet' => "Aukioloajat ei saa olla tyhjä!", request
+       ));
+   }
+
+   $ravintola->setAukioloajat(htmlspecialchars($_POST['aukioloajat']));
+
  
-  } else {
+   $ravintola->paivita();
+   $suositukset->paivita();
+   header('Location: ravintola.php?id='.$id);
+   $_SESSION['ilmoitus'] = "Ravintola lisätty onnistuneesti.";
+
+} else {
+
    $virheet = $ravintola->getVirheet();
 
-  //Virheet voidaan nyt välittää näkymälle syötettyjen tietojen kera
-   naytaNakyma("views/ravintolanpaivitys.php", array(
-    'nimi' => $ravintola->getNimi(),
+  naytaNakyma("views/ravintolanpaivitys.php", array(
     'ravintola' => $ravintola,
-    'virheet' => $ravintola->getVirheet()
-   ));
- }
-
+    'virheet' => $ravintola->getVirheet(), request
+  ));
 }
+
+
+
 

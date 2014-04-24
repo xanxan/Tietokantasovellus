@@ -31,8 +31,6 @@
 <div id="teamcontent" class="clearfix">
 <img src="<?php echo $ravintola->getKuva(); ?>" alt="kuva" class="img-rounded"> 
 <?php if(tarkistaKirjautuminen()): ?>
-	<?php if(!isset($data->arvosteltu)){ ?>
- 	  <a type="button" class="btn btn-warning" href="arvostele.php?id=<?php echo $ravintola->getId() ?>">Arvostele ravintola</a> <?php } ?>
    <?php if(isset($data->suosikki)) { ?>
 	<a type="button" class="btn btn-info" href="poistaSuosikki.php?id=<?php echo $ravintola->getId() ?>">Poista suosikeista</a>	
 
@@ -56,7 +54,7 @@
 <div class='tab-pane fade' id='tab_1_1'>
   <h1>Arviot ja arvostelut</h1>
     <ul>
-        <div>
+        <div class="col-md-6">
 
 	 <div>
 	    <dl class="dl-horizontal">
@@ -100,10 +98,42 @@
            </dl>
         </div>
   
-    </div> 
+    </div>
+      <div class="col-md-4">
+       <?php if (tarkistaKirjautuminen()) {
+	 if(!isset($data->arvosteltu)){ ?>
+          <a type="button" class="btn btn-warning" href="arvostele.php?id=<?php echo $ravintola->getId() ?>">Arvostele ravintola</a>
+	 <?php }
+	} ?> 
+      </div>
+ </ul>
+</div>
+<div class='tab-pane fade' id='tab_1_2'><h1>Viimeisimmät kommentit</h1>
+  <ul>
+    <?php foreach ($data->kommentit as $kommentti) { ?>
+		<dl class="dl-horizontal">
+		    <dt><?php echo $kommentti->getKayttajatunnus(); ?>: </dt>
+		    <dd><?php echo $kommentti->getKommentti(); ?></dt>
+		</dl>
+	<?php  } 
+
+    if (!isset($data->kommentoitu)) { ?>
+      <form class="form-horizontal" id="comment" role="form" action="ravintola.php?id=<?php echo $ravintola->getId(); ?>" method="POST">
+	<input type="hidden" name="id" value="<?php echo $ravintola->getId(); ?>">
+	<div class="form-group">
+	    <label for="text" class="col-sm-2 control-label"></label>
+		<div class="col-sm-10">
+		   <textarea type="text" class="form-control" rows="3" name="kommentti" placeholder="Kirjoita kommentti..."></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-10">
+		   <button type="submit" class="btn btn-default">Lähetä kommentti</button>
+		</div>
+	</div>
+      </form> <?php } ?>
   </ul>
 </div>
-<div class='tab-pane fade' id='tab_1_2'><h1>Viimeisimmät kommentit</h1></div>
 <div class='tab-pane fade' id='tab_1_3'><h1>Kuvagalleria</h1></div>
 </div>
 <script>

@@ -31,42 +31,31 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="#">Ravintola Demo</a>
     </div>
 	<?php require_once 'libs/utilities.php'; ?>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-     
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-info">Submit</button>
-        
-      </form>
          
         <form class ="navbar-form navbar-left" role="button">
-           
-            <a class="btn btn-warning" href="etusivu.php" type="button">Etusivu</a>
-            <a class="btn btn-warning" href="ravintolalista.php" role="button">Ravintolat</a>
-            <a class="btn btn-warning" href="users.php" type="button">Käyttäjät</a>
-            <a class="btn btn-warning" href="info.php" type="button">Info</a>
+            <a class="navbar-brand" href="etusivu.php">Ravintolatietokanta</a> 
+            <a class="navbar-brand" href="ravintolalista.php" role="button">Ravintolat</a>
+            <a class="navbar-brand" href="users.php" type="button">Käyttäjät</a>
+            <a class="navbar-brand" href="info.php" type="button">Info</a>
            <?php if(tarkistaKirjautuminen()): ?>
 	     <?php $kayttaja = $_SESSION['kirjautunut'] ?>
-       		<a class="btn btn-danger" href="profiili.php?id=<?php echo $kayttaja; ?>" type="button">Profiili</a>
-		<a class="btn btn-danger" href="ehdotuslomake.php" type="button">Ehdota ravintolaa!</a>
+       		<a class="navbar-brand" href="profiili.php?id=<?php echo $kayttaja; ?>">Profiili</a>
 	     <?php  endif; ?>
         
         </form>
 	<form class ="navbar-form navbar-right" role="button">
 	 <?php if(tarkistaOikeudet()): ?>
-                   <a class="btn btn-info" href="insert.php" type="button">Lisää ravintola</a>
+                   <a class="navbar-brand" href="insert.php" type="button">Lisää ravintola</a>
                 <?php endif; ?>
 	 <?php if(tarkistaKirjautuminen()){ ?>
-	    <a href="uloskirjautuminen.php" type="button" class="btn btn-info">Kirjaudu ulos</a>
+	    <a href="uloskirjautuminen.php" type="button" class="navbar-brand">Kirjaudu ulos</a>
 	<?php } else { ?>
-            <a href="login.php" type="button" class="btn btn-info">Kirjaudu sisään</a>
-            <a class="btn btn-info" href="register.php" role="button">Rekisteröidy</a>
+            <a href="login.php" type="button" class="navbar-brand">Kirjaudu sisään</a>
+            <a class="navbar-brand" href="register.php" role="button">Rekisteröidy</a>
         <?php }; ?>
 	 </form>
     

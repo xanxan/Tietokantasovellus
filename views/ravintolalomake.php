@@ -31,6 +31,7 @@
           <option value='eurooppalainen' selected='selected'>Eurooppalaiset</option>
           <option value='aasialainen'>Aasialaiset</option>
           <option value='kasvisravintola'>Kasvisravintolat</option>
+	  <option value='amerikkalainen'>Amerikkalaiset</option>
 	  <option value='pikaruokaravintola'>Pikaruokaravintolat</option>
           <option value='kahvila'>Kahvilat</option>
           <option value='baari'>Baarit</option>

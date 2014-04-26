@@ -39,7 +39,21 @@
   
 	<h1><?php  echo $data->virhe; ?></h1></div>
   
-	<div class='tab-pane fade' id='tab_1_1'><h1>Viimeisimmät kommentit</h1></div>
+	<div class='tab-pane fade' id='tab_1_1'><h1>Viimeisimmät kommentit</h1>
+	  <ul>
+	   <?php foreach ($data->kommentit as $kommentti) { ?>
+		<div class="media">
+		  <a class="pull-left">
+			<img class="media-object" src="<?php echo $kayttaja->getKuva(); ?>" alt="kuva">
+		  </a>
+		  <div class="media-body">
+			<h4 class="media-heading"><?php echo $kommentti->getRavintolannimi(); ?>: </h4>
+			<p><?php echo $kommentti->getKommentti(); ?></p>
+		 </div>
+		</div>
+	   <?php } ?>
+	  </ul>
+	</div>
         <div class='tab-pane fade' id='tab_1_2'><h1>Suosikkilista</h1>
                 <table class="table table-striped">
                   <thead>

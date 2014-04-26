@@ -14,7 +14,6 @@
       <li class="active"><a href="#tab_1_0" data-toggle='tab'>Yleistietoa ravintolasta</a></li>
       <li ><a href="#tab_1_1" data-toggle='tab'>Arviot ja arvostelut</a></li>
       <li ><a href="#tab_1_2" data-toggle='tab'>Viimeisimmät kommentit</a></li>
-      <li ><a href="#tab_1_3" data-toggle='tab'>Kuvagalleria</a></li>
      </ul>
     <div class="panel panel-default"><div class='panel-body'>
 	 
@@ -171,7 +170,7 @@
 	</div>
 	<?php  } 
 
-    if (!isset($data->kommentoitu)) { ?>
+    if (tarkistaKirjautuminen() && !isset($data->kommentoitu)) { ?>
       <form class="form-horizontal" id="comment" role="form" action="ravintola.php?id=<?php echo $ravintola->getId(); ?>" method="POST">
 	<input type="hidden" name="id" value="<?php echo $ravintola->getId(); ?>">
 	<div class="form-group">
@@ -188,7 +187,6 @@
       </form> <?php } ?>
   </ul>
 </div>
-<div class='tab-pane fade' id='tab_1_3'><h1>Kuvagalleria</h1></div>
 </div>
 
 <script>

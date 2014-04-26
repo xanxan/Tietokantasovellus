@@ -201,7 +201,7 @@ class Ravintola {
 	}
 
 	public static function getRavintolatSivulla($hintataso, $tyyppi, $j, $s, $m) {
-	// seuraavassa $tyyppi on muuttuja, jonka arvoa ei ulkopuolinen pysty muokkaamaan (valittu näkymässä selectillä). Kysymysmerkkiä käyttäessä listan suodatuskyselyistä tulisi satoja riviä copypastea sillä tyyppiä ei ole välttämättä määritelty, jolloin listan pitää näyttää kaikki tyypit. En myöskään keksinyt muuta eheää ja vaihtoehtoista tapaa tätä toteuttaa, joten suodatusparametrit on pistetty suoraan kyselyyn. Tämä valitettavuus korjataan heti kun eheä vaihtoehtoinen toteututstapa löytyy.
+	// seuraavassa $tyyppi ja $hintataso ovat muuttujia, joiden arvoa ei ulkopuolinen pysty muokkaamaan (valittu näkymässä selectillä ja kontrollerissa parametrien sisältö on tarkistettu). Kysymysmerkkiä käyttäessä listan suodatuskyselyistä tulisi satoja riviä copypastea (mitä se on jo valmiiksikin) sillä tyyppiä ja hintatasoa ei ole välttämättä määritelty, jolloin listan pitää näyttää kaikki tyypit ja hintatasot jokaisessa järjestysvaihtoehdossa. En myöskään keksinyt tai löytänyt muuta eheää ja vaihtoehtoista tapaa tätä toteuttaa, joten suodatusparametrit on pistetty suoraan kyselyyn. Tämä valitettavuus korjataan heti jos ja kun eheä vaihtoehtoinen toteututstapa löytyy.
 			
 		$sivu = $s;
 		$montako = $m;

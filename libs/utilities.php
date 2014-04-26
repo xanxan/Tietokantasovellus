@@ -43,3 +43,19 @@
 	   return true;
         }
   }
+ 
+  function onkoHintataso($arvo) {
+	if ($arvo === '€' || $arvo === '€€' || $arvo === '€€€' || $arvo === '€€€€' || $arvo === '€€€€€') {
+		return true;
+	} else {
+		return false;
+	}
+  }
+
+ function onkoTyyppi($tyyppi) {
+	if ($tyyppi === 'eurooppalainen' || $tyyppi === 'aasialainen' || $tyyppi === 'amerikkalainen' || $tyyppi === 'pikaruokaravintola' || $tyyppi === 'kasvisravintola' || $tyyppi === 'kahvila' || $tyyppi === 'baari' || $tyyppi === 'muu') {
+		return true;
+	} else {
+		return false;
+	}
+}

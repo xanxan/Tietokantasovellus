@@ -8,7 +8,7 @@
     $sivu = (int)$_GET['sivu'];
 
 //    Sivunumero ei saa olla pienempi kuin yksi
-    if ($sivu < 1) $sivu = 1;
+    if ($sivu < 1) {$sivu = 1;}
   }
   $montako = 10;
   $jarjestys =1;
@@ -23,17 +23,17 @@
   $sivuja = ceil($ravintolaLkm/$montako);
  
  // $ravintolat = Ravintola::etsiKaikkiRavintolat();
-  if(empty($_GET["jarjestys"]) && empty($_GET["hintataso"]) && empty($_GET["arvio"]) && empty($_GET["tyyppi"])) {
+  if(empty($_GET["jarjestys"]) && empty($_GET["hintataso"]) && empty($_GET["tyyppi"])) {
   	naytaNakyma("views/ravintolalista.php", array(
 		'sivuja' => $sivuja,
-		'lista' => $ravintolat
-
+		'lista' => $ravintolat,
+		'sivu' => $sivu
 	));
   }
-  if (!empty($_GET["hintataso"])) {
+  if (!empty($_GET["hintataso"]) && onkoHintataso($_GET["hintataso"]) == true) {
  	 $hintataso = "= '".htmlspecialchars($_GET["hintataso"])."'";
   } 
-  if (!empty($_GET["tyyppi"])) {
+  if (!empty($_GET["tyyppi"]) && onkoTyyppi($_GET["tyyppi"]) == true) {
   	$tyyppi = "= '".htmlspecialchars($_GET["tyyppi"])."'";
   }
   $jarjestys = htmlspecialchars($_GET["jarjestys"]);
@@ -41,5 +41,6 @@
   $tulos = Ravintola::getRavintolatSivulla($hintataso, $tyyppi, $jarjestys, $sivu, $montako);
   naytaNakyma("views/ravintolalista.php", array(
 		'sivuja' => $sivuja,
-		'lista' => $tulos
+		'lista' => $tulos,
+		'sivu' => $sivu
    ));

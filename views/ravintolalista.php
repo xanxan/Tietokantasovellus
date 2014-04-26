@@ -28,6 +28,7 @@
           <option value="kasvisravintola">Kasvisravintolat</option>
           <option value="kahvila">Kahvilat</option>
           <option value="baari">Baarit</option>
+	  <option value="muu">Muut</option>
         </select>
    </div>
  </div>
@@ -77,18 +78,27 @@
        
       </tbody>
     </table>
-            <ul class="pagination">
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-	    <?php if ($data->sivu > 0): ?>
-            <li class="disabled"><a href="ravintolalista.php?sivu=<?php echo $data->sivu -1; ?>">&laquo;</a></li>
+    <?php if($data->sivuja > 1): ?>
+      <ul class="pagination">
+	<?php if($data->sivu > 1): ?>           
+	    <li><a href="ravintolalista.php?sivu=<?php echo $data->sivu-1; ?>">&laquo</a></li>
+	    <?php else: ?>
+            <li class="disabled"><a>&laquo;</a></li>
 	    <?php endif; ?>
-            <li><a href="ravintolalista.php?sivu=2">2</a></li>
-            <li><a href="ravintolalista.php?sivu=3">3</a></li>
-            <li><a href="ravintolalista.php?sivu=4">4</a></li>
-            <li><a href="ravintolalista.php?sivu=5">5</a></li>
+
+	    <?php for($i = 1; $i <=$data->sivuja; $i++): ?>
+	    <?php if($i === $data->sivu): ?>
+            <li class="active"><a href="ravintolalista.php?sivu=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+	    <?php else: ?>
+            <li><a href="ravintolalista.php?sivu=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+	    <?php endif; ?>
+	    <?php endfor; ?>
+
 	    <?php if ($data->sivu < $data->sivuja): ?>
-            <li><a href="ravintolalista.php?sivu=<?php echo $data->sivu + 1; ?>">&raquo;</a></li>
+            <li><a href="ravintolalista.php?sivu=<?php echo $data->sivu + 1; ?>">&raquo</a></li>
+	    <?php else: ?>
+	    <li class="disabled"><a>&raquo</a></li>
 	    <?php endif; ?>
-	    <div><h6>Yhteensä <?php echo Ravintola::lukumaara(); ?> ravintolaa</h6></div>
-        </ul>
+     </ul>
+     <?php endif; ?>
   </div>

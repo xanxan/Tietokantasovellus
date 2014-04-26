@@ -1,3 +1,4 @@
+<?php $sivuja = $data->sivuja; $ravintolat = $data->lista; ?>
 <div class="container">
  <h1>Ravintolat</h1>
  <form role="form" action="ravintolalista.php" method="GET" name="sortlist">
@@ -15,28 +16,16 @@
     	</select>
     </div>
   </div> 
-  <div class="form-group">
-    <div class="col-sm-2 control-label">
-        <select id="yleisarvio" class="form-group" name="yleisarvio">
-          <option value='' selected='selected'>Yleisarvio</option>
-          <option value="1">*</option>
-          <option value="2">**</option>
-          <option value="3">***</option>
-          <option value="4">****</option>
-          <option value="5">*****</option>
-        </select>
-    </div>
-  </div>
 
   <div class="form-group">
     <div class="col-sm-2 control-label"> 
 	  <select id="tyyppi" class="form-group" name="tyyppi">
           <option value='' selected='selected'>Tyyppi</option>
-          <option value="eurooppa">Eurooppalaiset</option>
-          <option value="aasia">Aasialaiset</option>
+          <option value="eurooppalainen">Eurooppalaiset</option>
+          <option value="aasialainen">Aasialaiset</option>
 	  <option value="amerikkalainen">Amerikkalaiset</option>
-	  <option value="pikaruoka">Pikaruokalat</option>
-          <option value="kasvis">Kasvisravintolat</option>
+	  <option value="pikaruokaravintola">Pikaruokalat</option>
+          <option value="kasvisravintola">Kasvisravintolat</option>
           <option value="kahvila">Kahvilat</option>
           <option value="baari">Baarit</option>
         </select>
@@ -45,13 +34,14 @@
 
  <div class="form-group">
    <div class="col-sm-2 control-label"> 
-	  <select id="jarjestys" class="form-group" name="jarjestys">
-          <option value='' selected='selected'>Järjestä</option>
-          <option value='hintataso'>Halvin-Kallein</option>
-          <option value='hintataso desc'>Kallein-Halvin</option>
-          <option value='yleisarvio'>Yleisarvio</option>
-          <option value='nimi'>Nimjärjestys</option>
-          <option value='suosikki'>Suosikeissa</option>
+	  <select id="jarjestys"  class="form-group" name="jarjestys">
+          <option value='1' selected='selected'>Järjestä</option>
+          <option value=1>Nimjärjestys</option>
+	  <option value=2>Halvimmat</option>
+          <option value=3>Kalleimmat ensin</option>
+	  <option value=4>Parhaimmat ensin</option>
+          <option value=5>Surkeimmat ensin</option>
+          <option value=6>Suosikeissa</option>
         </select>
    </div>
 </div>
@@ -74,7 +64,7 @@
         </tr>
       </thead>
       <tbody>
-	<?php foreach($data->lista as $ravintola): ?>
+	<?php foreach($ravintolat as $ravintola): ?>
         <tr>
           <td><?php echo $ravintola->getNimi(); ?></td>
           <td><?php echo $ravintola->getOsoite(); ?></td>

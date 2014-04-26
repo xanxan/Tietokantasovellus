@@ -61,42 +61,26 @@
 <h4>Suositukset</h4>
 <div class="form-group">
 <label class="checkbox-inline">
-  <input type="checkbox" name="lapset" id="inlineCheckbox1" value="ok"> Lapsiperheet
+  <input type="checkbox" name="lapset" id="inlineCheckbox1" value='true'> Lapsiperheet
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" name="kasvis" id="inlineCheckbox2" value="ok"> Kasvissyöjät
+  <input type="checkbox" name="kasvis" id="inlineCheckbox2" value='true'> Kasvissyöjät
 </label>
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox3" name="vege" value="ok"> Vegaanit
-</label>
-</div>
-</div>
-<div class="col-md-offset-2 col-sm-10">
-<div class="form-group">
-<label class="checkbox-inline">
-<input type="checkbox" id="inlineCheckbox1" value="ok" name="buffet"> Buffet-pöytä
-</label>
-<label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox2" value="ok" name="aamu"> Aamiainen/brunssi
-</label>
-<label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox3" value="ok" name="lounas"> Lounas
+  <input type="checkbox" id="inlineCheckbox3" name="vege" value='true'> Vegaanit
 </label>
 </div>
 </div>
 <div class="col-md-offset-2 col-sm-10">
 <div class="form-group">
 <label class="checkbox-inline">
-
-  <input type="checkbox" id="inlineCheckbox1" value="ok" name="oikeus"> A-oikeudet
+<input type="checkbox" id="inlineCheckbox1" value='true' name="buffet"> Buffet-pöytä
 </label>
-
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox2" value="ok" name="varaus"> Varaus etukäteen
+  <input type="checkbox" id="inlineCheckbox2" value='true' name="aamu"> Aamiainen/brunssi
 </label>
-
 <label class="checkbox-inline">
-  <input type="checkbox" id="inlineCheckbox3" value="ok" name="k18"> K18
+  <input type="checkbox" id="inlineCheckbox3" value='true' name="lounas"> Lounas
 </label>
 </div>
 </div>
@@ -104,7 +88,23 @@
 <div class="form-group">
 <label class="checkbox-inline">
 
-  <input type="checkbox" id="inlineCheckbox1" value="ok" name="puku"> Pukupakko
+  <input type="checkbox" id="inlineCheckbox1" value='true' name="oikeus"> A-oikeudet
+</label>
+
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox2" value='true' name="varaus"> Varaus etukäteen
+</label>
+
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox3" value='true' name="k18"> K18
+</label>
+</div>
+</div>
+<div class="col-md-offset-2 col-sm-10">
+<div class="form-group">
+<label class="checkbox-inline">
+
+  <input type="checkbox" id="inlineCheckbox1" value='true' name="puku"> Pukupakko
 </label>
 </div>
 </div>

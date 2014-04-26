@@ -17,3 +17,10 @@ insert into ravintolat values(default,'Ma-Pe klo 10-21, La klo 12-20',0,'€€'
 insert into yllapitajat values(5, 'admin');
 
 insert into yllapitajat values(4, 'xanxan');
+
+insert into sopivuustiedot values(false, false, false, false, true, true, true, false, 'Hesburger', 1, false, false);
+
+insert into sopivuustiedot values(false, false, false, false, true, true, true, false, 'Mc Donalds', 2, false, false);
+
+insert into sopivuustiedot values(false, false, false, false, true, true, true, false, 'Burger King', 3, false, false);
+

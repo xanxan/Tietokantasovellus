@@ -8,6 +8,7 @@ class Kommentit {
   private $kayttajatunnus;
   private $kommentti;
   private $ravintolannimi;
+  private $kuva;
 
   public function __construct($kayttaja_id, $ravintola_id, $kayttaja, $ravintola, $kommentti) {
         $this->kayttaja_id = $kayttaja_id;
@@ -15,18 +16,20 @@ class Kommentit {
 	$this->kayttajatunnus = $kayttaja;
 	$this->ravintolannimi = $ravintola;
 	$this->kommentti = $kommentti;
+	
   }
 
   public function etsiRavintolanKommentit($ravintola) {
-        $sql = "SELECT kayttajatunnus, kommentti FROM kommentit WHERE ravintola_id = ?";
+        $sql = "SELECT kuva, kayttajatunnus, kommentti FROM kommentit, kayttajat WHERE ravintola_id = ? AND kayttaja_id = id";
         $kysely = getTietokantayhteys()->prepare($sql);
-        $kysely->execute(array($kayttaja));
+        $kysely->execute(array($ravintola));
 
         $tulokset = array();
         foreach($kysely->fetchAll(PDO::FETCH_OBJ) as $tulos) {
                 $lista = new Kommentit();
 		$lista->setKayttajatunnus($tulos->kayttajatunnus);
 		$lista->setKommentti($tulos->kommentti);
+		$lista->setKuva($tulos->kuva);
                 $tulokset[] = $lista;
         }
         return $tulokset;
@@ -45,6 +48,17 @@ class Kommentit {
                 $tulokset[] = $lista;
         }
         return $tulokset;
+  }
+  public function onkoKommentoitu($kayttaja, $ravintola) {
+	$sql = "SELECT kayttaja_id, ravintola_id FROM kommentit WHERE kayttaja_id = ? AND ravintola_id = ? LIMIT 1";
+	$kysely = getTietokantayhteys()->prepare($sql);
+        $kysely->execute(array($kayttaja, $ravintola));
+	$tulos = $kysely->fetchObject();
+	if ($tulos == null) {
+		return null;
+	} else {
+		return $tulos;
+	}
   }
 
   public function ravintolallaKommentteja($ravintola) {
@@ -65,10 +79,10 @@ class Kommentit {
 
   }
 
-  public function lisaaKantaan() {
+  public function lisaaKantaan($kayttaja, $ravintola, $nimi, $tunnus, $kommentti) {
         $sql = "INSERT INTO kommentit(kayttaja_id, ravintola_id, ravintolannimi, kayttajatunnus, kommentti) VALUES (?,?,?,?,?)";
         $kysely = getTietokantayhteys()->prepare($sql);
-        $ok = $kysely->execute(array($this->getKayttaja_id(), $this->getRavintola_id(), $this->getRavintolannimi(), $this->getKayttajatunnus(), $this->getKommentti()));
+        $ok = $kysely->execute(array($kayttaja, $ravintola, $nimi, $tunnus, $kommentti));
 
         return $ok;
   }
@@ -81,7 +95,12 @@ class Kommentit {
 	return $ok;
 
   }
-
+  public function poistaRavintolanKommentit($id) {
+	$sql = "DELETE FROM kommentit WHERE ravintola_id = ?";
+	$kysely = getTietokantayhteys()->prepare($sql);
+        $ok = $kysely->execute(array($id));
+ 	return $ok;
+  }
   public function poistaKommentti() {
         $sql = "DELETE FROM kommentit WHERE kayttaja_id = ? AND ravintola_id = ? AND kommentti = ?";
         $kysely = getTietokantayhteys()->prepare($sql);
@@ -98,7 +117,7 @@ class Kommentit {
   }
 
   public function setKayttajatunnus($tunnus) {
-        $this->tunnus = $tunnus;
+        $this->kayttajatunnus = $tunnus;
 
   }
 
@@ -110,6 +129,14 @@ class Kommentit {
   public function setKayttaja_id($id) {
         $this->kayttaja_id = $id;
 
+  }
+
+  public function setKuva($kuva) {
+	$this->kuva = $kuva;
+  }
+
+  public function getKuva($kuva) {
+	return $this->kuva;
   }
 
   public function getRavintola_id() {

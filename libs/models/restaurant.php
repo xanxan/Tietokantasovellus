@@ -38,7 +38,7 @@ class Ravintola {
 		$ravintola = new Ravintola();
 		$ravintola->setId($tulos->id);
                 $ravintola->setNimi($tulos->nimi);
-                $ravintola->setTyyppi($tulos->id);
+                $ravintola->setTyyppi($tulos->tyyppi);
                 $ravintola->setOsoite($tulos->osoite);
                 $ravintola->setAukioloajat($tulos->aukioloajat);
                 $ravintola->setHintataso($tulos->hintataso);
@@ -60,7 +60,7 @@ class Ravintola {
 		$ravintola = new Ravintola();
                 $ravintola->setId($tulos->id);
                 $ravintola->setNimi($tulos->nimi);
-                $ravintola->setTyyppi($tulos->id);
+                $ravintola->setTyyppi($tulos->tyyppi);
                 $ravintola->setOsoite($tulos->osoite);
                 $ravintola->setAukioloajat($tulos->aukioloajat);
                 $ravintola->setHintataso($tulos->hintataso);
@@ -83,7 +83,7 @@ class Ravintola {
 		$ravintola = new Ravintola();
                 $ravintola->setId($tulos->id);
                 $ravintola->setNimi($tulos->nimi);
-                $ravintola->setTyyppi($tulos->id);
+                $ravintola->setTyyppi($tulos->tyyppi);
                 $ravintola->setOsoite($tulos->osoite);
                 $ravintola->setAukioloajat($tulos->aukioloajat);
                 $ravintola->setHintataso($tulos->hintataso);
@@ -127,7 +127,7 @@ class Ravintola {
                 $ravintola = new Ravintola();
                 $ravintola->setId($tulos->id);
                 $ravintola->setNimi($tulos->nimi);
-                $ravintola->setTyyppi($tulos->id);
+                $ravintola->setTyyppi($tulos->tyyppi);
                 $ravintola->setOsoite($tulos->osoite);
                 $ravintola->setAukioloajat($tulos->aukioloajat);
                 $ravintola->setHintataso($tulos->hintataso);
@@ -165,7 +165,23 @@ class Ravintola {
 		return $ok;
 	    }
 
-        public function poistaKayttaja() {
+	public function muokkaaSuosikkia() {
+      		$sql = "UPDATE ravintolat SET suosikki = ? WHERE id = ?";
+                $kysely = getTietokantayhteys()->prepare($sql);
+                $ok = $kysely->execute(array($this->getSuosikki(), $this->getId()));
+
+                return $ok;
+            }
+
+	public function muokkaaInhokkia() {
+                $sql = "UPDATE ravintolat SET inhokki = ? WHERE id = ?";
+                $kysely = getTietokantayhteys()->prepare($sql);   
+                $ok = $kysely->execute(array($this->getInhokki(), $this->getId()));
+
+                return $ok;
+            }
+
+        public function poistaRavintola() {
 		$sql = "DELETE FROM ravintolat WHERE id = ?";
 		$kysely = getTietokantayhteys()->prepare($sql);
 		$ok = $kysely->execute(array($this->getId()));
@@ -174,20 +190,34 @@ class Ravintola {
 	    }
 
 
-	public static function onkoKelvollinen() {
+	public function onkoKelvollinen() {
 		return empty($this->virheet);
 
 	}
 	
-	public static function getVirheet() {
+	public function getVirheet() {
 		return $this->virheet;
 
 	}
 
-	public static function getRavintolatSivulla($s, $m) {
+	public static function getRavintolatSivulla($hintataso, $tyyppi, $j, $s, $m) {
+	// seuraavassa $tyyppi on muuttuja, jonka arvoa ei ulkopuolinen pysty muokkaamaan (valittu näkymässä selectillä). Kysymysmerkkiä käyttäessä listan suodatuskyselyistä tulisi satoja riviä copypastea sillä tyyppiä ei ole välttämättä määritelty, jolloin listan pitää näyttää kaikki tyypit. En myöskään keksinyt muuta eheää ja vaihtoehtoista tapaa tätä toteuttaa, joten suodatusparametrit on pistetty suoraan kyselyyn. Tämä valitettavuus korjataan heti kun eheä vaihtoehtoinen toteututstapa löytyy.
+			
 		$sivu = $s;
 		$montako = $m;
-		$sql = "SELECT * FROM ravintolat ORDER BY nimi LIMIT ? OFFSET ?";
+		if ($j == 1) {
+		$sql = "SELECT * FROM ravintolat WHERE tyyppi $tyyppi AND hintataso $hintataso ORDER BY nimi LIMIT ? OFFSET ?";
+		} else if ($j == 2) {
+		$sql = "SELECT * FROM ravintolat WHERE tyyppi $tyyppi AND hintataso $hintataso ORDER BY hintataso LIMIT ? OFFSET ?";
+		} else if ($j == 3) {
+                $sql = "SELECT * FROM ravintolat WHERE tyyppi $tyyppi AND hintataso $hintataso ORDER BY hintataso desc LIMIT ? OFFSET ?";
+                } else if ($j == 4) {
+		$sql = "SELECT arvio, id, nimi, tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat, (select ravintola_id, ravintolanimi, avg(yleisarvio) as arvio FROM arvostelut GROUP BY ravintola_id, ravintolanimi) A WHERE id = ravintola_id AND tyyppi $tyyppi AND hintataso $hintataso GROUP BY id, nimi, arvio, tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja , tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja ORDER BY arvio desc LIMIT ? OFFSET ?";
+		} else if ($j == 5) {
+                $sql = "SELECT arvio, id, nimi, tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja FROM ravintolat, (select ravintola_id, ravintolanimi, avg(yleisarvio) as arvio FROM arvostelut GROUP BY ravintola_id, ravintolanimi) A WHERE id = ravintola_id AND tyyppi $tyyppi AND hintataso $hintataso GROUP BY id, nimi, arvio, tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja , tyyppi, osoite, aukioloajat, hintataso, kuvaus, kuva, suosikki, inhokki, arvosteluja, kommentteja ORDER BY arvio LIMIT ? OFFSET ?";
+                } else if ($j == 6) {
+		$sql = "SELECT * FROM ravintolat WHERE tyyppi $tyyppi AND hintataso $hintataso ORDER BY suosikki desc LIMIT ? OFFSET ?";
+		}
 		$kysely = getTietokantayhteys()->prepare($sql);
 		$kysely->execute(array($montako, ($sivu-1)*$montako));
 		
@@ -196,7 +226,7 @@ class Ravintola {
                          $ravintola = new Ravintola();
                 	$ravintola->setId($tulos->id);
                 	$ravintola->setNimi($tulos->nimi);
-                	$ravintola->setTyyppi($tulos->id);
+                	$ravintola->setTyyppi($tulos->tyyppi);
                 	$ravintola->setOsoite($tulos->osoite);
                 	$ravintola->setAukioloajat($tulos->aukioloajat);
                 	$ravintola->setHintataso($tulos->hintataso);
@@ -207,7 +237,8 @@ class Ravintola {
                 	$ravintola->setArvosteluja($tulos->arvosteluja);
                 	$ravintola->setKommentteja($tulos->kommentteja);
 
-                
+               		$arvio = $ravintola->arvio();
+                	$ravintola->setArvio($arvio); 
                         $tulokset[] = $ravintola;
 
                 } return $tulokset;
@@ -308,7 +339,7 @@ class Ravintola {
         public function setKuva($kuva) {
 		$this->kuva = $kuva;
         }
-	 public function getSuodikki() {
+	 public function getSuosikki() {
 		return $this->suosikki;
         }
 

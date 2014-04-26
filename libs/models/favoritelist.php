@@ -60,6 +60,15 @@ class Suosikit {
         return $ok;
   }
  
+  public function poistaRavintola($ravintola) {
+	$sql = "DELETE FROM suosikkilista WHERE ravintola_id = ?";
+	$kysely = getTietokantayhteys()->prepare($sql);
+        $ok = $kysely->execute(array($ravintola));
+
+        return $ok;
+
+  }
+ 
   public function getRavintola_id() {
 	return $this->ravintola_id;
   }

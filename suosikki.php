@@ -9,6 +9,9 @@ $virhe = null;
 
 
 if (!is_null($ravintola)) {
+  $s = $ravintola->getSuosikki() + 1;
+  $ravintola->setSuosikki($s);
+  $ravintola->muokkaaSuosikkia();
   Suosikit::lisaaKantaan($id, $_SESSION['kirjautunut']);
   $_SESSION['ilmoitus'] = "Ravintola lisätty suosikkeihin!";
   header('Location: ravintola.php?id='.$id);

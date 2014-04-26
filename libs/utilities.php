@@ -34,3 +34,12 @@
 	   ?><span class="glyphicon glyphicon-star"></span>
 	<?php }
   }
+
+  function onkoTrue($arvo) {
+	if ($arvo === true) {
+	   return false;
+	}  else {
+
+	   return true;
+        }
+  }

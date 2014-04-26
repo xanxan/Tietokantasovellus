@@ -44,11 +44,11 @@ class Sopivuustiedot {
 	$tiedot->setVegaanit($tulos->vegaanit);
 	$tiedot->setLounas($tulos->lounas);
 	$tiedot->setAamiainenBrunssi($tulos->aamiainenBrunssi);
-	$tiedot->anniskeluoikeus($tulos->anniskeluoikeus);
-	$tiedot->buffet($tulos->buffet);
-	$tiedot->k18($tulos->k18);
-	$tiedot->pukupakko($tulos->pukupakko);
-	$tiedot->varauspakko($tulos->varauspakko);
+	$tiedot->setAnniskeluoikeus($tulos->anniskeluoikeus);
+	$tiedot->setBuffet($tulos->buffet);
+	$tiedot->setK18($tulos->k18);
+	$tiedot->setPukupakko($tulos->pukupakko);
+	$tiedot->setVarauspakko($tulos->varauspakko);
 
 	return $tiedot;
   }
@@ -56,20 +56,21 @@ class Sopivuustiedot {
   public function haeRavintolanTiedot($ravintola) {
 	$sql = "SELECT ravintola_id, kasvissyojat, lapsiperheet, vegaanit, lounas, aamiainenBrunssi, anniskeluoikeus, buffet, k18, pukupakko, varauspakko, ravintola FROM sopivuustiedot WHERE ravintola_id = ? LIMIT 1";
 	$kysely = getTietokantayhteys()->prepare($sql);
+	$kysely->execute(array($ravintola->getId()));
 	$tulos = $kysely->fetchObject();
 	if ($tulos == null) {
 		return null;
 	} else {
-		$tiedot = Self::uudetTiedot($tulos);
+		$tiedot = self::uudetTiedot($tulos);
 		return $tiedot;
 	} 
   }
 
   public function lisaaKantaan($id) {
-	$sql = "INSERT INTO sopivuustiedot(kasvissyojat, lapsiperheet, vegaanit, lounas, aamiainenBrunssi, anniskeluoikeus, buffet, varauspakko, k18, pukupakko, ravintola, ravintola_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+	$sql = "INSERT INTO sopivuustiedot(lapsiperheet, kasvissyojat, vegaanit, lounas, aamiainenBrunssi, anniskeluoikeus, buffet, varauspakko, k18, pukupakko, ravintola, ravintola_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 	$kysely = getTietokantayhteys()->prepare($sql);
 
-	$ok = $kysely->execute(array($this->getKasvissyojat(), $this->getLapsiperheet(), $this->getVegaanit(), $this->getLounas(), $this->getAamiainenBrunssi(), $this->getAnniskeluoikeus(), $this->getBuffet(), $this->getVarauspakko(), $this->getK18(), $this->getPukupakko(), $this->getRavintola(), $id));
+	$ok = $kysely->execute(array($this->getLapsiperheet(), $this->getKasvissyojat(), $this->getVegaanit(), $this->getLounas(), $this->getAamiainenBrunssi(), $this->getAnniskeluoikeus(), $this->getBuffet(), $this->getVarauspakko(), $this->getK18(), $this->getPukupakko(), $this->getRavintola(), $id));
 	return $ok; 
   }
 
@@ -80,10 +81,10 @@ class Sopivuustiedot {
 	return $ok;
   }
 
-  public function poistaTiedot() {
+  public function poistaTiedot($id) {
 	$sql = "DELETE FROM sopivuustiedot WHERE ravintola_id = ?";
 	$kysely = getTietokantayhteys()->prepare($sql);
-	$ok = $kysely->execute(array($this->getRavintola_id()));
+	$ok = $kysely->execute(array($id));
 	return $ok;
   }
 
@@ -115,7 +116,7 @@ class Sopivuustiedot {
   }
 
   public function setAamiainenBrunssi($ab) {
-	if(strcmp($ab,'ok') === 0) {
+	if($ab == 'true') {
             $this->aamiainenBrunssi = 'true';
 	} else {
 	    $this->aamiainenBrunssi = 'false';
@@ -128,7 +129,7 @@ class Sopivuustiedot {
   }
 
   public function setAnniskeluoikeus($aoikeus) {
-	if (strcmp($aoikeus,'ok') === 0) {
+	if ($aoikeus == 'true') {
         	$this->anniskeluoikeus = 'true';
 	} else {
 		$this->anniskeluoikeus = 'false';
@@ -141,7 +142,7 @@ class Sopivuustiedot {
   }
 
   public function setBuffet($buffet) {
-	if (strcmp($buffet,'ok') === 0) {
+	if ($buffet == 'true') {
              $this->buffet = 'true';
 	} else {
 	     $this->buffet = 'false';
@@ -154,7 +155,7 @@ class Sopivuustiedot {
   }
 
   public function setK18($k18) {
-	if (strcmp($k18,'ok') === 0) {
+	if ($k18 == 'true') {
              $this->k18 = 'true';
 	} else {
 	     $this->k18 = 'false';
@@ -167,10 +168,10 @@ class Sopivuustiedot {
   }
 
   public function setKasvissyojat($kasvissyojat) {
-	if (strcmp($kasvissyojat, 'ok') === 0){
+	if ($kasvissyojat == 'true'){
               $this->kasvissyojat = 'true';
 	} else {
-	      $this->kasvissyojat = 'true';
+	      $this->kasvissyojat = 'false';
 	}
   }
 
@@ -180,7 +181,7 @@ class Sopivuustiedot {
   }
 
   public function setLapsiperheet($lapsiperheet) {
-         if (strcmp($lapsiperheet,'ok') === 0) {
+         if ($lapsiperheet == 'true') {
 	      $this->lapsiperheet = 'true';
 	 } else {
 	      $this->lapsiperheet = 'false';
@@ -193,7 +194,7 @@ class Sopivuustiedot {
   }
 
   public function setLounas($lounas) {
-        if (strcmp($lounas,'ok') === 0){
+        if ($lounas == 'true'){
 	     $this->lounas = 'true';
 	} else {
 	     $this->lounas = 'false';
@@ -206,7 +207,7 @@ class Sopivuustiedot {
   }
 
   public function setPukupakko($pukupakko) {
-	if (strcmp($pukupakko,'ok') === 0) {
+	if ($pukupakko == 'true') {
              $this->pukupakko = 'true';
 	} else {
 	     $this->pukupakko = 'false';
@@ -219,7 +220,7 @@ class Sopivuustiedot {
   }
 
   public function setVarauspakko($varauspakko) {
-	if(strcmp($varauspakko,'ok') === 0) {
+	if($varauspakko == 'true') {
             $this->varauspakko = 'true';
 	} else {
 	    $this->varauspakko = 'false';
@@ -232,7 +233,7 @@ class Sopivuustiedot {
   }
 
   public function setVegaanit($vegaanit) {
-	if(strcmp($vegaanit,'ok') === 0) {
+	if($vegaanit == 'true') {
             $this->vegaanit = 'true';
 	} else { 
 	    $this->vegaanit = 'false';

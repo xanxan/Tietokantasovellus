@@ -4,7 +4,7 @@ require_once 'libs/tietokantayhteys.php';
 class Arvostelu {
 
   private $arvostelija_id;
-  private $arvostelija_tunnus;
+  private $arvostelijatunnus;
   private $arvostelupv;
   private $hintaLaatu;
   private $juomatarjonta;
@@ -19,7 +19,7 @@ class Arvostelu {
   public function __construct($id, $tunnus, $pv, $hintalaatu, $juomat, $palvelu, $ravintola, $nimi, $ruoka, $yleisarvio) {
 
 	$this->arvostelija_id = $id;
-	$this->arvostelija_tunnus = $tunnus;
+	$this->arvostelijatunnus = $tunnus;
 	$this->arvostelupv = $pv;
 	$this->hintaLaatu = $hintalaatu;
 	$this->juomatarjonta = $juomat;
@@ -124,10 +124,10 @@ class Arvostelu {
 	}
   }
 
-  public function poistaArvostelu() {
-	$sql = "DELETE FROM arvostelut WHERE ravintola_id = ? AND arvostelija_id = ?";
+  public function poistaArvostelut($id) {
+	$sql = "DELETE FROM arvostelut WHERE ravintola_id = ?";
 	$kysely = getTietokantayhteys()->prepare($sql);
-	$ok = $kysely->execute(array($this->getRavintola_id(), $this->getArvostelija_id()));
+	$ok = $kysely->execute(array($id));
 	return $ok;
 
   }

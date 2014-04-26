@@ -7,6 +7,7 @@
    require_once 'libs/models/reviews.php';
    require_once 'libs/models/comments.php';
    require_once 'libs/models/user.php';
+   require_once 'libs/models/preferences.php';
 
    $id = (int)$_GET['id'];
    $kayttaja= Kayttaja::etsiKayttajaIdlla($_SESSION["kirjautunut"]);
@@ -18,6 +19,7 @@
    $arvosteluja = Arvostelu::lukumaara($id);
    $kommentit = Kommentit::etsiRavintolanKommentit($id);
    $kommentoitu = Kommentit::onkoKommentoitu($_SESSION["kirjautunut"], $id);
+   $lisatiedot = Sopivuustiedot::haeRavintolanTiedot($ravintola);
    $yleisarvio = 0;
    $hintalaatu = 0;
    $palvelu = 0;
@@ -46,8 +48,9 @@
                  'juomat' => $juomat / $arvosteluja,
                  'ruoka' => $ruoka / $arvosteluja,
                  'kommentit' => $kommentit,
-                 'kommentoitu' => $kommentoitu
-                 ));
+                 'kommentoitu' => $kommentoitu,
+                 'tiedot' => $lisatiedot
+		  ));
 	}
          if (isset($_POST['kommentti'])) {
 		Kommentit::lisaaKantaan($_SESSION['kirjautunut'], $id, $ravintola->getNimi(), $kayttaja->getTunnus(), htmlspecialchars($_POST['kommentti']));

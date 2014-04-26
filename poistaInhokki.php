@@ -9,6 +9,9 @@ $virhe = null;
 
 
 if (!is_null($ravintola)) {
+  $i = $ravintola->getInhokki() - 1;
+  $ravintola->setInhokki($i);
+  $ravintola->muokkaaInhokkia();
   Inhokit::poistaRavintolaListalta($id, $_SESSION['kirjautunut']);
   $_SESSION['ilmoitus'] = "Ravintola poistettu inhokeista.";
   header('Location: ravintola.php?id='.$id);

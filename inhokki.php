@@ -11,6 +11,9 @@ $virhe = null;
 
 
 if (!is_null($ravintola)) {
+  $i = $ravintola->getInhokki() + 1;
+  $ravintola->setInhokki($i);
+  $ravintola->muokkaaInhokkia();
   Inhokit::lisaaKantaan($id, $_SESSION['kirjautunut']);
   $_SESSION['ilmoitus'] = "Ravintola lisätty inhokkeihin!";
   header('Location: ravintola.php?id='.$id);

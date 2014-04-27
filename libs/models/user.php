@@ -81,7 +81,7 @@ class Kayttaja {
    	 }
     }
     public function lisaaKantaan() {
-	    $sql = "INSERT INTO kayttajat(arvosteluja, inhokkeja, kommentteja, kuva, kuvaus, salasana, liittymispaiva, suosikkeja, tunnus) VALUES(0,0,0,?,?,?,'2014-04-10',0,?) RETURNING id";
+	    $sql = "INSERT INTO kayttajat(arvosteluja, inhokkeja, kommentteja, kuva, kuvaus, salasana, liittymispaiva, suosikkeja, tunnus) VALUES(0,0,0,?,?,?,CURRENT_DATE,0,?) RETURNING id";
     $kysely = getTietokantayhteys()->prepare($sql);
 
     $ok = $kysely->execute(array($this->getKuva(), $this->getKuvaus(), $this->getSalasana(), $this->getTunnus()));
@@ -187,6 +187,40 @@ class Kayttaja {
                 } return $tulokset;
 
 }
+
+ public function muokkaaSuosikkeja() {
+                $sql = "UPDATE kayttajat SET suosikki = ? WHERE id = ?";
+                $kysely = getTietokantayhteys()->prepare($sql);
+                $ok = $kysely->execute(array($this->getSuosikkeja(), $this->getId()));
+
+                return $ok;
+            }
+
+        public function muokkaaInhokkeja() {
+                $sql = "UPDATE kayttajat SET inhokki = ? WHERE id = ?";
+                $kysely = getTietokantayhteys()->prepare($sql);
+                $ok = $kysely->execute(array($this->getInhokkeja(), $this->getId()));
+
+                return $ok;
+            }
+        public function muokkaaKommentteja() {
+                $sql = "UPDATE kayttajat SET kommentteja = ? WHERE id = ?";
+                $kysely = getTietokantayhteys()->prepare($sql);
+                $ok = $kysely->execute(array($this->getKommentteja(), $this->getId()));
+
+                return $ok;
+        }
+
+        public function muokkaaArvosteluja() {
+                $sql = "UPDATE kayttajat SET arvosteluja = ? WHERE id = ?";
+                $kysely = getTietokantayhteys()->prepare($sql);
+                $ok = $kysely->execute(array($this->getArvosteluja(), $this->getId()));
+
+                return $ok;
+
+        }
+
+
 
 
  /* Tähän gettereitä ja settereitä */

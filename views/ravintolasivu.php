@@ -131,37 +131,41 @@
                 <dd><?php tulostaTahdet($data->hintalaatu); ?></dd>
            </dl>
 	</div>
-       
-	 <div>
-	    <dl class="dl-horizontal">
+	<div>
+           <dl class="dl-horizontal">
                 <dt>Palvelu:</dt>
                 <dd><?php tulostaTahdet($data->palvelu); ?></dd>
             </dl>
 	</div>
- 
 	<div>
            <dl class="dl-horizontal">
                 <dt>Juomatarjonta:</dt>
                 <dd><?php  tulostaTahdet($data->juomat); ?></dd>
            </dl>
         </div>
-  
     </div>
       <div class="col-md-4">
        <?php if (tarkistaKirjautuminen()) {
 	 if(!isset($data->arvosteltu)){ ?>
           <a type="button" class="btn btn-warning" href="arvostele.php?id=<?php echo $ravintola->getId() ?>">Arvostele ravintola</a>
-	 <?php }
+	 <?php } else { ?>
+		<p>Olet jo arvostellut tämän ravintolan.</p><?php
+	 }
 	} ?> 
       </div>
  </ul>
 </div>
 <div class='tab-pane fade' id='tab_1_2'><h1>Viimeisimmät kommentit</h1>
   <ul>
+    <div clas="row"><dl></dl></div>
+    <div class="row"><dl></dl></div>
+    <?php if (empty($data->kommentit)) {
+	?><p class="text-center">Tällä ravintolalla ei ole vielä kommentteja.</p>
+    <?php } ?>
     <?php foreach ($data->kommentit as $kommentti) { ?>
 	<div class="media">
-		<a class="pull-left" href="profiili.php?id=<?php echo $kommentti->getKayttaja_id() ?>">
-		   <img class="media-object" src="<?php echo $kommentti->getKuva(); ?>" alt="kuva">
+		<a class="pull-left" href="profiili.php?id=<?php echo $kommentti->getKayttaja_id(); ?>">
+		   <img class="img-circle" src="<?php echo $kommentti->getKuva(); ?>" alt="kuva">
 		</a>
 		<div class="media-body">
 		    <h4 class="media-heading"><?php echo $kommentti->getKayttajatunnus(); ?>: </h4>

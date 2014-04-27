@@ -16,11 +16,14 @@ if (!is_null($kayttaja)) {
 		));
 	}
 
-	$salasana = $_POST['password'];
-        $kayttaja->setSalasana($_POST['password1']);
-        $salasana2 = $_POST['password2'];
-        $kayttaja->setKuvaus($_POST['kuvaus']);
-        $kayttaja->setKuva($_POST['kuva']);
+	$salasana = htmlspecialchars($_POST['password']);
+       
+	if(!empty($_POST['password1']) && !empty($_POST['password2'])) {
+ 		$kayttaja->setSalasana(htmlspecialchars($_POST['password1']));
+        	$salasana2 = htmlspecialchars($_POST['password2']);
+        }
+ 	$kayttaja->setKuvaus(htmlspecialchars($_POST['kuvaus']));
+        $kayttaja->setKuva(htmlspecialchars($_POST['kuva']));
 	
 	if(empty($_POST["password"])) {
 	        naytaNakyma("views/profiilinpaivitys.php", array(
@@ -28,7 +31,7 @@ if (!is_null($kayttaja)) {
 		'virhe' => "Kirjoitathan nykyisen salasanasi ennen tietojen tallentamista!",
 	        )); }
 
-		 $salasana = $_POST['password'];
+		 $salasana = htmlspecialchars($_POST['password']);
 
 	if(!empty($_POST["password1"]) && empty($_POST["password2"])) {
 		naytaNakyma("views/profiilinpaivitys.php", array(
@@ -36,12 +39,20 @@ if (!is_null($kayttaja)) {
 		'virhe' => "Et kirjoittanut uutta salasanaasi uudelleen!",
 		'virheet' => $kayttaja->getVirheet()
 		)); }
+	if(!empty($_POST['password1']) && !empty($_POST['password2'])) {
+		 $kayttaja->setSalasana(htmlspecialchars($_POST['password1']));
+		 $salasana2 = htmlspecialchars($_POST["password2"]);
+	}
 
-	 $kayttaja->setSalasana($_POST['password1']);
-	 $salasana2 = $_POST["password2"];
-
-	if($kayttaja->getSalasana() == $salasana2) {
-		$user = Kayttaja::etsiKayttajaTunnuksilla($kayttaja->getTunnus(), $salasana);
+	if(!empty($_POST["password1"]) && empty($_POST["password2"]) && $kayttaja->getSalasana() != $salasana2) {
+		   naytaNakyma("views/profiilinpaivitys.php", array(
+                'kayttaja' => $kayttaja,
+                'virhe' => "Uudet salasanat eivät täsmänneet!",
+                'virheet' => $kayttaja->getVirheet(), request
+                ));
+        }
+	
+	$user = Kayttaja::etsiKayttajaTunnuksilla($kayttaja->getTunnus(), $salasana);
 
 		if (!is_null($user)) {
 		   if($user->onkoKelvollinen()) {
@@ -52,22 +63,15 @@ if (!is_null($kayttaja)) {
 			$virheet = $user->getVirheet();
 			naytaNakyma("views/profiilinpaivitys.php", array(
 			'kayttaja' => $kayttaja,
-			'virheet' => $virheet
+			'virheet' => $virheet, request
 			)); }
 		} else {
 			naytaNakyma("views/profiilinpaivitys.php", array(
 			'kayttaja' => $kayttaja,
 			'virhe' => "Annoit väärän salasanan",
-			'virheet' => $kayttaja->getVirheet()
+			'virheet' => $kayttaja->getVirheet(), request
 			));
 
-			$salasana = $_POST['password'];
-		}
-	} else {
-		naytaNakyma("views/profiilinpaivitys.php", array(
-		'kayttaja' => $kayttaja,
-		'virhe' => "Uudet salasanat eivät täsmänneet!", 
-		'virheet' => $kayttaja->getVirheet(), request
-		));
-	}
+		} $salasana = $_POST['password'];
+	
 }

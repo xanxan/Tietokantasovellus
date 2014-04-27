@@ -3,14 +3,12 @@
 require_once 'libs/utilities.php';
 require_once 'libs/models/user.php';
 
-
+$kayttaja = new Kayttaja();
 if(empty($_POST["username"]) && empty($_POST["password1"]) && empty($_POST["password2"])) {
 	naytaNakyma("views/rekisteröityminen.php", array(
 		'kayttaja' => $kayttaja,
-
 	));
 }
-$kayttaja = new Kayttaja();
 $kayttaja->setTunnus(htmlspecialchars($_POST['username']));
 $kayttaja->setSalasana(htmlspecialchars($_POST['password1']));
 $salasana2 = htmlspecialchars($_POST["password2"]);
@@ -19,6 +17,7 @@ $kayttaja->setKuva(htmlspecialchars($_POST['kuva']));
 
 if (empty($_POST["username"])) {
 	naytaNakyma("rekisteröityminen.php", array(
+		'kayttaja' => $kayttaja,
 		'virhe' => "Virhe rekisteröitymisessä, et antanut käyttäjätunnusta.",
 ));
    }

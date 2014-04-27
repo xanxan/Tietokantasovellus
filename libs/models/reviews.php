@@ -6,7 +6,7 @@ class Arvostelu {
   private $arvostelija_id;
   private $arvostelijatunnus;
   private $arvostelupv;
-  private $hintaLaatu;
+  private $hintalaatu;
   private $juomatarjonta;
   private $palvelu;
   private $ravintola_id;
@@ -21,7 +21,7 @@ class Arvostelu {
 	$this->arvostelija_id = $id;
 	$this->arvostelijatunnus = $tunnus;
 	$this->arvostelupv = $pv;
-	$this->hintaLaatu = $hintalaatu;
+	$this->hintalaatu = $hintalaatu;
 	$this->juomatarjonta = $juomat;
 	$this->palvelu = $palvelu;
 	$this->ravintola_id = $ravintola;
@@ -37,7 +37,7 @@ class Arvostelu {
 	$arvostelu->setRavintola_id($tulos->ravintola_id);
 	$arvostelu->setArvostelijatunnus($tulos->arvostelijatunnus);
 	$arvostelu->setArvostelupv($tulos->arvostelupv);
-	$arvostelu->setHintaLaatu($tulos->hintaLaatu);
+	$arvostelu->setHintalaatu($tulos->hintalaatu);
 	$arvostelu->setJuomatarjonta($tulos->juomatarjonta);
 	$arvostelu->setPalvelu($tulos->palvelu);
 	$arvostelu->setRavintolanimi($tulos->ravintolanimi);
@@ -118,7 +118,7 @@ class Arvostelu {
   public function paivita() {
 	$sql = "UPDATE arvostelut SET hintaLaatu = ?, juomatarjonta = ?, palvelu = ?, ruoka = ?, yleisarvio = ?  WHERE arvostelija_id = ? AND ravintola_id = ?";
 	$kysely = getTietokantayhteys()->prepare($sql);
-	$ok = $kysely->execute(array($this->getHintaLaatu(), $this->getJuomatarjonta(), $this->getPalvelu(), $this->getRuoka(), $this->getYleisarvio(), $this->getArvostelija_id(), $this->getRavintola_id()));
+	$ok = $kysely->execute(array($this->getHintalaatu(), $this->getJuomatarjonta(), $this->getPalvelu(), $this->getRuoka(), $this->getYleisarvio(), $this->getArvostelija_id(), $this->getRavintola_id()));
 	if ($ok) {
 	  return $ok;
 	}
@@ -174,13 +174,13 @@ class Arvostelu {
 
   }
 
-  public function getHintaLaatu() {
-        return $this->hintaLaatu;
+  public function getHintalaatu() {
+        return $this->hintalaatu;
 
   }
 
-  public function setHintaLaatu($hintalaatu) {
-        $this->hintaLaatu = $hintalaatu;
+  public function setHintalaatu($hintalaatu) {
+        $this->hintalaatu = $hintalaatu;
 
   }
 

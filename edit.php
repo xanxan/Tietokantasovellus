@@ -58,7 +58,7 @@ if(tarkistaKirjautuminen() && tarkistaOikeudet() && isset($ravintola) && isset($
    $ravintola->paivita();
    $suositukset->paivita();
    header('Location: ravintola.php?id='.$id);
-   $_SESSION['ilmoitus'] = "Ravintola lisätty onnistuneesti.";
+   $_SESSION['ilmoitus'] = "Ravintola päivitetty onnistuneesti.";
 
 } else {
 

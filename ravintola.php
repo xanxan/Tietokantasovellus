@@ -28,7 +28,7 @@
 
    foreach($arvostelut as $arvostelu) {
 	$yleisarvio = $yleisarvio + $arvostelu->getYleisarvio();
- 	$hintalaatu = $hintalaatu + $arvostelu->getHintaLaatu();
+ 	$hintalaatu = $hintalaatu + $arvostelu->getHintalaatu();
 	$palvelu = $palvelu + $arvostelu->getPalvelu();
 	$juomat = $juomat + $arvostelu->getJuomatarjonta();
 	$ruoka = $ruoka + $arvostelu->getRuoka();
@@ -54,6 +54,12 @@
 	}
          if (isset($_POST['kommentti'])) {
 		Kommentit::lisaaKantaan($_SESSION['kirjautunut'], $id, $ravintola->getNimi(), $kayttaja->getTunnus(), htmlspecialchars($_POST['kommentti']));
+		$k = $kayttaja->getKommentteja();
+		$kayttaja->setKommentteja($k +1);
+		$s = $ravintola->getKommentteja();
+		$ravintola->setKommentteja($s +1);
+		$ravintola->muokkaaKommentteja();
+		$kayttaja->muokkaaKommentteja();
 		header('Location: ravintola.php?id='.$id);
 		$_SESSION['ilmoitus'] = "Kommenttisi on nyt lisätty.";	
 	 }

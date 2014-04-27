@@ -38,6 +38,12 @@
  	}
 	$arvostelu->setYleisarvio($_POST['yleisarvio']);
  	$arvostelu->lisaaKantaan();
+	$k = $ravintola->getArvosteluja();
+        $s = $nimi->getArvosteluja();
+	$nimi->setArvosteluja($s + 1);
+        $nimi->muokkaaArvosteluja();
+        $ravintola->setArvosteluja($k + 1);
+	$ravintola->muokkaaArvosteluja();
 	header('Location: ravintola.php?id='.$id);
 	
 	$_SESSION['ilmoitus'] = "Arvostelu lisätty onnistuneesti!";

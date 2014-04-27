@@ -6,7 +6,7 @@
 
    if(empty($_POST["username"]) && empty($_POST["password"])) {
 	naytaNakyma("kirjautumislomake.php", array(
-		'kayttaja' => $kayttaja,
+		
 	));
    }
 

@@ -20,7 +20,7 @@ class Kommentit {
   }
 
   public function etsiRavintolanKommentit($ravintola) {
-        $sql = "SELECT kuva, kayttajatunnus, kommentti FROM kommentit, kayttajat WHERE ravintola_id = ? AND kayttaja_id = id";
+        $sql = "SELECT kuva, kayttaja_id, kayttajatunnus, kommentti FROM kommentit, kayttajat WHERE ravintola_id = ? AND kayttaja_id = id";
         $kysely = getTietokantayhteys()->prepare($sql);
         $kysely->execute(array($ravintola));
 
@@ -30,6 +30,7 @@ class Kommentit {
 		$lista->setKayttajatunnus($tulos->kayttajatunnus);
 		$lista->setKommentti($tulos->kommentti);
 		$lista->setKuva($tulos->kuva);
+		$lista->setKayttaja_id($tulos->kayttaja_id);
                 $tulokset[] = $lista;
         }
         return $tulokset;

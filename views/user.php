@@ -7,44 +7,76 @@
 
 ?>
 <div class="container">
-<div class="kayttaja">
-   
+ <div class="kayttaja">
     <h1>Käyttäjän <?php echo $kayttaja->getTunnus(); ?>  profiili</h1>
-   
     <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#tab_1_0" data-toggle='tab'>Henkilötiedot</a></li>
-    <li ><a href="#tab_1_1" data-toggle='tab'>Viimeisimmät kommentit</a></li>
-    <li ><a href="#tab_1_2" data-toggle='tab'>Suosikkilista</a></li>
-    <li ><a href="#tab_1_3" data-toggle='tab'>Inhokkilista</a></li>
-  </ul>
-  <div class="panel panel-default"><div class='panel-body'>
-   <div class='tab-content'>
-    <div class="tab-pane in active" id='tab_1_0'>
-      <h1>Henkilötiedot</h1>
-      
-     <ul>
-        <h2 class="text-center">Lisätietoja</h2>
-        
-        <p class="text-center"><?php echo $kayttaja->getKuvaus(); ?></p>
-      <div id="teamcontent" class="clearfix">
-        <img src="<?php echo $kayttaja->getKuva(); ?>" alt="kuva" class="img-circle">
-	<h4>Liittynyt</h4>
-	<div class="value"><?php echo $kayttaja->getLiittymispaiva(); ?></div>
-    
-     <?php if(tarkistaKirjautuminen() && $kayttaja->getId() == $_SESSION['kirjautunut']): ?>  
-	 <a type="button" href="update.php?id=<?php echo $kayttaja->getId() ?>" class="btn btn-xs btn-warning">Muokkaa tietoja</a>   
-     <?php  endif; ?>
-	</div>	
-    </ul> 
-  
-	<h1><?php  echo $data->virhe; ?></h1></div>
-  
+      <li class="active"><a href="#tab_1_0" data-toggle='tab'>Henkilötiedot</a></li>
+      <li ><a href="#tab_1_1" data-toggle='tab'>Viimeisimmät kommentit</a></li>
+      <li ><a href="#tab_1_2" data-toggle='tab'>Suosikkilista</a></li>
+      <li ><a href="#tab_1_3" data-toggle='tab'>Inhokkilista</a></li>
+    </ul>
+    <div class="panel panel-default"><div class='panel-body'>
+      <div class='tab-content'>
+    	<div class="tab-pane in active" id='tab_1_0'>
+      	   <div><h1>Henkilötiedot</h1></div>
+	   <div></div>
+      	     <ul>
+	      <div class="row">
+		<div class="col-md-4">
+		  <dl></dl>
+		  <dl>
+		    <dt>Käyttäjätunnus</dt>
+		    <dd><?php echo $kayttaja->getTunnus(); ?></dd>
+		  </dl>
+		  <dl>
+		    <dt>Liittynyt</dt>
+		    <dd><?php echo $kayttaja->getLiittymispaiva(); ?></dd>      
+		  </dl>
+		  <dl>
+		    <dt>Kuvaus</dt>
+		    <dd><?php echo $kayttaja->getKuvaus(); ?></dd>
+		  </dl>
+		</div>
+		
+		<div class="col-md-4">
+		  <dl></dl>
+		  <dl class="dl-horizontal">
+		    <dt>Annettuja arvosteluja</dt>
+		    <dd><?php echo $kayttaja->getArvosteluja(); ?></dd>
+		  </dl>
+		  <dl class="dl-horizontal">
+		    <dt>Annettuja kommentteja</dt>
+		    <dd><?php echo $kayttaja->getKommentteja(); ?></dd>
+		  </dl>
+		  <dl class="dl-horizontal">
+		    <dt>Suosikkiravintoloita</dt>
+		    <dd><?php echo $kayttaja->getSuosikkeja(); ?></dd>
+		  </dl>
+		  <dl class="dl-horizontal">
+		    <dt>Inhokkiravintoloita</dt>
+		    <dd><?php echo $kayttaja->getInhokkeja(); ?></dd>
+		  </dl>
+		</div>
+		<dl></dl>
+		<div class="col-md-4">
+        	   <img src="<?php echo $kayttaja->getKuva(); ?>" alt="kuva" class="img-rounded">
+		</div>
+   	      </div>
+	      <div class="row">
+		<div class="col-md-5"> 
+     		  <?php if(tarkistaKirjautuminen() && $kayttaja->getId() == $_SESSION['kirjautunut']): ?>  
+	 		<a type="button" href="update.php?id=<?php echo $kayttaja->getId() ?>" class="btn btn-xs btn-warning">Muokkaa tietoja</a>   
+     		  <?php  endif; ?>
+		</div>	
+	      </div>
+    	    </ul> 
+	  <h1><?php  echo $data->virhe; ?></h1></div>
 	<div class='tab-pane fade' id='tab_1_1'><h1>Viimeisimmät kommentit</h1>
 	  <ul>
 	   <?php foreach ($data->kommentit as $kommentti) { ?>
 		<div class="media">
 		  <a class="pull-left">
-			<img class="media-object" src="<?php echo $kayttaja->getKuva(); ?>" alt="kuva">
+			<img class="img-circle" src="<?php echo $kayttaja->getKuva(); ?>" alt="kuva">
 		  </a>
 		  <div class="media-body">
 			<h4 class="media-heading"><?php echo $kommentti->getRavintolannimi(); ?>: </h4>

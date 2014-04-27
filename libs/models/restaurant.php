@@ -180,6 +180,22 @@ class Ravintola {
 
                 return $ok;
             }
+	public function muokkaaKommentteja() {
+		$sql = "UPDATE ravintolat SET kommentteja = ? WHERE id = ?";
+		$kysely = getTietokantayhteys()->prepare($sql);
+		$ok = $kysely->execute(array($this->getKommentteja(), $this->getId()));
+
+		return $ok;
+	}
+
+	public function muokkaaArvosteluja() {
+		$sql = "UPDATE ravintolat SET arvosteluja = ? WHERE id = ?";
+		$kysely = getTietokantayhteys()->prepare($sql);
+		$ok = $kysely->execute(array($this->getArvosteluja(), $this->getId()));
+
+		return $ok;
+
+	}
 
         public function poistaRavintola() {
 		$sql = "DELETE FROM ravintolat WHERE id = ?";

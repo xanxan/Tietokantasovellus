@@ -189,7 +189,7 @@ class Kayttaja {
 }
 
  public function muokkaaSuosikkeja() {
-                $sql = "UPDATE kayttajat SET suosikki = ? WHERE id = ?";
+                $sql = "UPDATE kayttajat SET suosikkeja = ? WHERE id = ?";
                 $kysely = getTietokantayhteys()->prepare($sql);
                 $ok = $kysely->execute(array($this->getSuosikkeja(), $this->getId()));
 
@@ -197,7 +197,7 @@ class Kayttaja {
             }
 
         public function muokkaaInhokkeja() {
-                $sql = "UPDATE kayttajat SET inhokki = ? WHERE id = ?";
+                $sql = "UPDATE kayttajat SET inhokkeja = ? WHERE id = ?";
                 $kysely = getTietokantayhteys()->prepare($sql);
                 $ok = $kysely->execute(array($this->getInhokkeja(), $this->getId()));
 

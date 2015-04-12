@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
+    </head>
+    <body>
+         <nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="#">Ravintola Demo</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+     
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-info">Submit</button>
+        
+      </form>
+         
+        <form class ="navbar-form navbar-left" role="button">
+           
+            <button class="btn btn-warning" type="button">Etusivu</button>
+            <button class="btn btn-warning" href="#" role="button">Ravintolat</button>
+            <button class="btn btn-warning" type="button">Käyttäjät</button>
+            <button class="btn btn-warning" type="button">Info</button>
+           
+        
+        </form>
+        <form class ="navbar-form navbar-right" role="button">
+             <button type="submit" class="btn btn-info">Kirjaudu sisään</button>
+            <button class="btn btn-info" href="#" role="button">Rekisteröidy</button>
+        </form>
+    
+        
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+      
+     
+
+        <div class="container">
+            <h1>Ravintolat</h1>
+     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Hintataso <span class="caret"></span>
+  </button>
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Arvio <span class="caret"></span>
+  </button>
+   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Avoinna <span class="caret"></span>
+  </button>
+   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Näytä <span class="caret"></span>
+  </button>
+   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    Järjestä <span class="caret"></span>
+  </button>
+  <button type="button" class="btn btn-warning">
+    Päivitä! 
+  </button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Ravintola</th>
+          <th>Osoite</th>
+          <th>Yleisarvio</th>
+          <th>Hintataso</th>
+          <th>Avoinna</th>
+          <th>Ravintolan profiili</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Burger King</td>
+          <td>Mannerheimintie 8</td>
+          <td>***</td>
+          <td>€€</td>
+          <td>Ma-La 10.00 - 21.00</td>
+          <td><button type="button" class="btn btn-xs btn-success">Mene sivulle</button></td>
+        </tr>
+        <tr>
+          <td>Itamae Sushi</td>
+          <td>Simonkatu 1</td>
+          <td>***</td>
+          <td>€€€</td>
+          <td>Ma-La 10.00 - 18.00</td>
+          <td><button type="button" class="btn btn-xs btn-success ">Mene sivulle</button></td>
+        </tr>
+        <tr>
+          <td>Chéz Dominicue</td>
+          <td>Töölönkatu 6</td>
+          <td>*****</td>
+          <td>€€€€€</td>
+          <td>Ti-Su 16.00 - 22.00</td>
+          <td><button type="button" class="btn btn-xs btn-success">Mene sivulle</button></td>
+        </tr>
+       
+      </tbody>
+    </table>
+            <ul class="pagination">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+  </div>
+         
+
+    </body>
+</html>

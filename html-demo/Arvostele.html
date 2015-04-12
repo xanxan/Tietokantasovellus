@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../css/bootstrap.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
+    </head>
+    <body>
+         <nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="#">Ravintola Demo</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+     
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-info">Submit</button>
+        
+      </form>
+         
+        <form class ="navbar-form navbar-left" role="button">
+           
+            <button class="btn btn-warning" type="button">Etusivu</button>
+            <button class="btn btn-warning" href="#" role="button">Ravintolat</button>
+            <button class="btn btn-warning" type="button">Käyttäjät</button>
+            <button class="btn btn-warning" type="button">Info</button>
+            <button class="btn btn-danger" type="button">Profiili</button>
+            <button class="btn btn-danger" type="button">Ehdota meille ravintolaa!</button>
+           
+        
+        </form>
+        <form class ="navbar-form navbar-right" role="button">
+             <button type="submit" class="btn btn-info">Kirjaudu ulos</button>
+            
+        </form>
+    
+        
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+        <div class="container">
+    <h1 class="text-center">Anna arvio</h1>
+    <form class="form-horizontal" role="form" action="lomake.html" method="POST">
+        
+   <div class="form-group">
+       <div class="col-md-offset-4 col-md-10">
+    <label for="ruoka" class="col-md-2 control-label">Yleisarvio</label>
+    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">Valitse
+    <span class="caret"></span></button>
+       </div>
+  </div>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-10">
+    <label for="ruoka" class="col-md-2 control-label">Hinta/laatu -suhde</label>
+    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">Valitse
+    <span class="caret"></span></button>
+                </div>
+  </div>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-10">
+    <label for="ruoka" class="col-md-2 control-label">Palvelun taso</label>
+    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">Valitse
+    <span class="caret"></span></button>
+                </div>
+  </div>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-10">
+    <label for="ruoka" class="col-md-2 control-label">Ruuan laatu</label>
+    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">Valitse
+    <span class="caret"></span></button>
+                </div>
+  </div>
+  <div class="form-group">
+      <div class="col-md-offset-4 col-md-10">
+    <label for="ruoka" class="col-md-2 control-label">Juomatarjonta</label>
+    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">Valitse
+    <span class="caret"></span></button>
+  </div>
+  </div>
+        <div class="col-md-offset-4 col-md-10">
+  <button type="submit" class="btn btn-default">Lähetä</button>
+        </form>
+</div>
+        </div>
+    </body>
+</html>

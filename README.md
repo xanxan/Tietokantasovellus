@@ -1,2 +1,6 @@
-# ohtu-viikko4-apu
-apurepo viikon 4 git tehtäviin
+Tietokantasovellus
+==================
+
+Ravintolatietokanta Helsingin ravintoloista
+
+esittelysivu: http://xanxan.users.cs.helsinki.fi/esittelysivu.php
